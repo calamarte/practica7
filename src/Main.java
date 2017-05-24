@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 /**
  * Created by calamarte on 23/05/2017.
@@ -11,19 +12,24 @@ public class Main {
     static JPanel j = new JPanel();
     static JMenuBar jmb = new JMenuBar();
 
-    public static void main(String[] args) {
+    public static void main(String[] args)throws Exception {
         setMenu();
         jmb.setVisible(false);
         Login l = new Login();
         Inicio i = new Inicio();
         AltaLibros ali = new AltaLibros();
+        BajaLibros bli = new BajaLibros();
+        ImageIcon img = new ImageIcon("C:\\Users\\calamarte\\Desktop\\Java\\practica7\\img\\estanteria.jpg");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setIconImage(img.getImage());
         frame.setSize(400, 200);
         frame.setVisible(true);
         j.setLayout(new CardLayout());
         j.add(l.getLoginPanel(),"Login");
         j.add(i.getInicio(),"Inicio");
         j.add(ali.getAltaLibrosPanel(),"AltaLibros");
+        j.add(bli.getBajaLibrosPanel(),"BajaLibros");
+
 
         frame.setContentPane(j);
 
@@ -47,6 +53,13 @@ public class Main {
             public void actionPerformed(ActionEvent e) {
                 CardLayout cl = (CardLayout) Main.j.getLayout();
                 cl.show(Main.j,"AltaLibros");
+            }
+        });
+        bajaLibro.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CardLayout cl = (CardLayout) Main.j.getLayout();
+                cl.show(Main.j,"BajaLibros");
             }
         });
 

@@ -25,6 +25,12 @@ public class AltaLibros {
                 cl.show(Main.j,"Inicio");
             }
         });
+        ok.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //Base de Datos
+            }
+        });
     }
 
     public JPanel getAltaLibrosPanel() {
