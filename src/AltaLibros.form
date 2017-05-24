@@ -19,7 +19,7 @@
             <constraints/>
             <properties>
               <hideActionText value="true"/>
-              <text value="Aceptar"/>
+              <text value="Guardar"/>
             </properties>
           </component>
           <component id="557ff" class="javax.swing.JButton" binding="cancel">
