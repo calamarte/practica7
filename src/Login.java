@@ -21,6 +21,7 @@ public class Login {
                 if (user.getText().equals("root") && passwd.getText().equals("1234")){
                     Main.frame.setSize(1100,500);
                     CardLayout cl = (CardLayout) Main.j.getLayout();
+                    Main.jmb.setVisible(true);
                     cl.show(Main.j,"Inicio");
                     //JOptionPane.showMessageDialog(Main.frame,"Todo bien","ole",JOptionPane.PLAIN_MESSAGE);
                 }else{
