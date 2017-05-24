@@ -5,7 +5,7 @@ import java.awt.*;
  * Created by calamarte on 23/05/2017.
  */
 public class Main {
-    static JFrame frame = new JFrame("La Blioteca");
+    static JFrame frame = new JFrame("La Biblioteca");
     static JPanel j = new JPanel();
     static JMenuBar jmb = new JMenuBar();
 
@@ -39,5 +39,48 @@ public class Main {
         libros.add(modificarLibro);
         libros.add(consultarLibro);
 
+        JMenu lectores = new JMenu("Lectores");
+        jmb.add(lectores);
+        JMenuItem altaLector = new JMenuItem("Nuevo Lector");
+        JMenuItem bajaLector = new JMenuItem("Eliminar Lector");
+        JMenuItem modificarLector = new JMenuItem("Modificar ficha del lector");
+        JMenuItem consultarLector = new JMenuItem("Consultar lectores");
+        lectores.add(altaLector);
+        lectores.add(bajaLector);
+        lectores.add(modificarLector);
+        lectores.add(consultarLector);
+
+        JMenu autores = new JMenu("Autores");
+        jmb.add(autores);
+        JMenuItem altaAutor = new JMenuItem("Nuevo Autor");
+        JMenuItem bajaAutor = new JMenuItem("Eliminar Autor");
+        JMenuItem modificarAutor = new JMenuItem("Modificar ficha del autor");
+        JMenuItem consultarAutor = new JMenuItem("Consultar autores");
+        autores.add(altaAutor);
+        autores.add(bajaAutor);
+        autores.add(modificarAutor);
+        autores.add(consultarAutor);
+
+        JMenu sanciones = new JMenu("Sanciones");
+        jmb.add(sanciones);
+        JMenuItem altaSancion = new JMenuItem("Nueva Sanción");
+        JMenuItem bajaSancion = new JMenuItem("Eliminar Sanción");
+        JMenuItem modificarSancion = new JMenuItem("Modificar Sanción");
+        JMenuItem consultarSancion = new JMenuItem("Consultar Sanciones");
+        sanciones.add(altaSancion);
+        sanciones.add(bajaSancion);
+        sanciones.add(modificarSancion);
+        sanciones.add(consultarSancion);
+
+        JMenu prestamos = new JMenu("Prestamos");
+        jmb.add(prestamos);
+        JMenuItem altaPrestamo = new JMenuItem("Nuevo Prestamo");
+        JMenuItem bajaPrestamo = new JMenuItem("Eliminar Prestamo");
+        JMenuItem modificarPrestamo = new JMenuItem("Modificar Prestamo");
+        JMenuItem consultarPrestamo = new JMenuItem("Consultar Prestamo");
+        prestamos.add(altaPrestamo);
+        prestamos.add(bajaPrestamo);
+        prestamos.add(modificarPrestamo);
+        prestamos.add(consultarPrestamo);
     }
 }
