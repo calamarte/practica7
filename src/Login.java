@@ -23,7 +23,6 @@ public class Login {
                     CardLayout cl = (CardLayout) Main.j.getLayout();
                     Main.jmb.setVisible(true);
                     cl.show(Main.j,"Inicio");
-                    //JOptionPane.showMessageDialog(Main.frame,"Todo bien","ole",JOptionPane.PLAIN_MESSAGE);
                 }else{
                     JOptionPane.showMessageDialog(Main.frame,"Incorrecto","Error",JOptionPane.WARNING_MESSAGE);
                 }
