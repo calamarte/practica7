@@ -6,7 +6,7 @@ import javax.swing.*;
 public class Inicio {
 
     private JPanel Inicio;
-    private JButton talButton;
+
 
     public JPanel getInicio() {
         return Inicio;

@@ -5,7 +5,7 @@ import java.awt.*;
  * Created by calamarte on 23/05/2017.
  */
 public class Main {
-    static JFrame frame = new JFrame("Práctica");
+    static JFrame frame = new JFrame("La Blioteca");
     static JPanel j = new JPanel();
 
     public static void main(String[] args) {
