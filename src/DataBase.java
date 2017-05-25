@@ -1,11 +1,6 @@
 import java.sql.DriverManager;
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
+
 
 /**
  * Created by calamarte on 23/05/2017.
