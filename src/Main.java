@@ -19,6 +19,7 @@ public class Main {
         Inicio i = new Inicio();
         AltaLibros ali = new AltaLibros();
         BajaLibros bli = new BajaLibros();
+        AltaLectores ale = new AltaLectores();
         ImageIcon img = new ImageIcon("C:\\Users\\calamarte\\Desktop\\Java\\practica7\\img\\estanteria.jpg");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setIconImage(img.getImage());
@@ -29,6 +30,7 @@ public class Main {
         j.add(i.getInicio(),"Inicio");
         j.add(ali.getAltaLibrosPanel(),"AltaLibros");
         j.add(bli.getBajaLibrosPanel(),"BajaLibros");
+        j.add(ale.getAltaLectoresPanel(),"AltaLectores");
 
 
         frame.setContentPane(j);
@@ -73,6 +75,13 @@ public class Main {
         lectores.add(bajaLector);
         lectores.add(modificarLector);
         lectores.add(consultarLector);
+        altaLector.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CardLayout cl = (CardLayout) Main.j.getLayout();
+                cl.show(Main.j,"AltaLectores");
+            }
+        });
 
         JMenu autores = new JMenu("Autores");
         jmb.add(autores);
