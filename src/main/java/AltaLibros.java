@@ -19,14 +19,12 @@ public class AltaLibros {
 
     public AltaLibros() {
         cancel.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e) {
                 CardLayout cl = (CardLayout) Main.j.getLayout();
                 cl.show(Main.j,"Inicio");
             }
         });
         ok.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e) {
                 //Base de Datos
             }

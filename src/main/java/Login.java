@@ -16,7 +16,6 @@ public class Login {
 
     public Login() {
         loginButton.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e) {
                 if (user.getText().equals("root") && passwd.getText().equals("1234")){
                     CardLayout cl = (CardLayout) Main.j.getLayout();

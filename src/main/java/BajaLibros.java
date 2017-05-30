@@ -15,7 +15,6 @@ public class BajaLibros {
 
     public BajaLibros() {
         cancelarButton.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e) {
                 CardLayout cl = (CardLayout) Main.j.getLayout();
                 cl.show(Main.j,"Inicio");
