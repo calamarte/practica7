@@ -13,10 +13,12 @@ public class Login {
     private JLabel Contraseña;
     private JPasswordField passwd;
     private JPanel loginPanel;
+    private DataBase d = new DataBase("localhost","root","");
 
-    public Login() {
+
+    public Login() throws Exception {
         loginButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e){
                 if (user.getText().equals("root") && passwd.getText().equals("1234")){
                     CardLayout cl = (CardLayout) Main.j.getLayout();
                     Main.jmb.setVisible(true);

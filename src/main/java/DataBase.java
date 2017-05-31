@@ -19,9 +19,8 @@ public class DataBase {
         Connection conn = null;
         try {
             conn =
-                    DriverManager.getConnection("jdbc:mysql://localhost/test?" +
-                            "user=minty&password=greatsqldb");
-
+                    DriverManager.getConnection("jdbc:mysql://"+server+"/?" +
+                            "user="+username+"&password="+password);
             // Do something with the Connection
 
         } catch (SQLException ex) {
