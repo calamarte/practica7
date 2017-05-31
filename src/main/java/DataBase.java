@@ -1,5 +1,6 @@
 import java.sql.DriverManager;
 import java.sql.Connection;
+import java.sql.SQLException;
 
 
 /**
@@ -15,22 +16,20 @@ public class DataBase {
 
     public DataBase(String server, String username, String password) throws Exception {
 
+        Connection conn = null;
+        try {
+            conn =
+                    DriverManager.getConnection("jdbc:mysql://localhost/test?" +
+                            "user=minty&password=greatsqldb");
 
+            // Do something with the Connection
 
-        Class.forName("com.mysql.jdbc.Driver").newInstance();
-
-        Connection conexion = DriverManager.getConnection(servidor,usuario,password);
-
-//        try (PreparedStatement stmt = con.prepareStatement("SELECT country FROM country")) {
-//            ResultSet rs = stmt.executeQuery();
-//
-//            while (rs.next())
-//                System.out.println (rs.getString("country"));
-//
-//        } catch (SQLException sqle) {
-//            System.out.println("Error en la ejecución:"
-//                    + sqle.getErrorCode() + " " + sqle.getMessage());
-//        }
+        } catch (SQLException ex) {
+            // handle any errors
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+        }
     }
 
     public void InsertPerson(String name) throws Exception {
