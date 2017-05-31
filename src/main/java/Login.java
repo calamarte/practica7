@@ -19,7 +19,8 @@ public class Login {
     public Login() throws Exception {
         loginButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                if (user.getText().equals("root") && passwd.getText().equals("1234")){
+                String pas = new String(passwd.getPassword());
+                if (d.login(user.getText(),pas)){
                     CardLayout cl = (CardLayout) Main.j.getLayout();
                     Main.jmb.setVisible(true);
                     cl.show(Main.j,"Inicio");

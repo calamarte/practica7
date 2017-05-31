@@ -1,3 +1,4 @@
+import java.security.MessageDigest;
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -16,10 +17,8 @@ public class DataBase {
 
     public DataBase(String server, String username, String password) throws Exception {
         try {
-            conn =
-                    DriverManager.getConnection("jdbc:mysql://"+server+"/?" +
-                            "user="+username+"&password="+password);
-
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/practica",username,password);
 
 
         } catch (SQLException ex) {
@@ -34,16 +33,16 @@ public class DataBase {
 
     }
 
-    public boolean login(String bibliotecario, String password)throws Exception {
-        Statement stmt = null;
-        ResultSet rs = null;
+    public boolean login(String bibliotecario, String password){
+        try {
+        Statement stmt;
+        ResultSet rs;
         stmt = conn.createStatement();
-        rs = stmt.executeQuery("SELECT count(*) FROM Bibliotecario where Nombre = "+usuario+"and Password = "+password);
-        System.out.println(rs);
-
-        if(rs.equals("1")){
-            return true;
+        rs = stmt.executeQuery("SELECT * FROM bibliotecario where usuario = '"+bibliotecario+"' and password = md5('"+password+"');");
+            if (rs.next())return true;
+            else throw new Exception();
+        }catch (Exception e){
+            return false;
         }
-        else return false;
     }
 }
