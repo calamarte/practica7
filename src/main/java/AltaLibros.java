@@ -10,12 +10,12 @@ public class AltaLibros {
     private JPanel AltaLibrosPanel;
     private JButton cancel;
     private JButton ok;
-    private JTextField textField1;
-    private JTextField textField2;
-    private JTextField textField3;
-    private JTextField textField4;
-    private JTextField textField5;
-    private JTextField textField6;
+    private JTextField titulo;
+    private JTextField portada;
+    private JTextField autor;
+    private JTextField paginas;
+    private JTextField editorial;
+    private JTextField isbn;
 
     public AltaLibros() {
         cancel.addActionListener(new ActionListener() {

@@ -10,10 +10,10 @@ public class AltaLectores {
     private JButton cancelarButton;
     private JButton guardarButton;
     private JPanel AltaLectoresPanel;
-    private JTextField textField1;
-    private JTextField textField2;
-    private JTextField textField3;
-    private JTextField textField4;
+    private JTextField nombre;
+    private JTextField apellidos;
+    private JTextField dni;
+    private JTextField fecha;
 
     public AltaLectores() {
         cancelarButton.addActionListener(new ActionListener() {
