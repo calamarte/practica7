@@ -18,7 +18,7 @@ public class Main {
         Login l = new Login();
         Inicio i = new Inicio();
         AltaLibros ali = new AltaLibros();
-        BajaLibros bli = new BajaLibros();
+        //BajaLibros bli = new BajaLibros();
         AltaLectores ale = new AltaLectores();
         ImageIcon img = new ImageIcon("C:\\Users\\calamarte\\Desktop\\Java\\practica7\\img\\estanteria.jpg");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -29,7 +29,7 @@ public class Main {
         j.add(l.getLoginPanel(),"Login");
         j.add(i.getInicio(),"Inicio");
         j.add(ali.getAltaLibrosPanel(),"AltaLibros");
-        j.add(bli.getBajaLibrosPanel(),"BajaLibros");
+        //j.add(bli.getBajaLibrosPanel(),"BajaLibros");
         j.add(ale.getAltaLectoresPanel(),"AltaLectores");
 
 
