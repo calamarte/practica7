@@ -18,8 +18,9 @@ public class Main {
         Login l = new Login();
         Inicio i = new Inicio();
         AltaLibros ali = new AltaLibros();
-        //BajaLibros bli = new BajaLibros();
+        AltaAutores aau = new AltaAutores();
         AltaLectores ale = new AltaLectores();
+        AltaSancion asa = new AltaSancion();
         ImageIcon img = new ImageIcon("C:\\Users\\calamarte\\Desktop\\Java\\practica7\\img\\estanteria.jpg");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setIconImage(img.getImage());
@@ -29,13 +30,12 @@ public class Main {
         j.add(l.getLoginPanel(),"Login");
         j.add(i.getInicio(),"Inicio");
         j.add(ali.getAltaLibrosPanel(),"AltaLibros");
-        //j.add(bli.getBajaLibrosPanel(),"BajaLibros");
+//        j.add(asa.getAltaSancionPanel(),"AltaSancion");
+//        j.add(aau.getAltaAutoresPanel(),"AltaAutores");
         j.add(ale.getAltaLectoresPanel(),"AltaLectores");
 
 
         frame.setContentPane(j);
-
-        //JOptionPane.showMessageDialog(frame,"Incorrecto","Tal",JOptionPane.WARNING_MESSAGE);
     }
     private static void setMenu(){
         frame.setJMenuBar(jmb);
@@ -79,6 +79,12 @@ public class Main {
                 cl.show(Main.j,"AltaLectores");
             }
         });
+        bajaLector.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                CardLayout cl = (CardLayout) Main.j.getLayout();
+                cl.show(Main.j,"BajaSocio");
+            }
+        });
 
         JMenu autores = new JMenu("Autores");
         jmb.add(autores);
@@ -90,6 +96,12 @@ public class Main {
         autores.add(bajaAutor);
         autores.add(modificarAutor);
         autores.add(consultarAutor);
+        altaAutor.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                CardLayout cl = (CardLayout) Main.j.getLayout();
+                cl.show(Main.j,"AltaAutores");
+            }
+        });
 
         JMenu sanciones = new JMenu("Sanciones");
         jmb.add(sanciones);
@@ -101,6 +113,18 @@ public class Main {
         sanciones.add(bajaSancion);
         sanciones.add(modificarSancion);
         sanciones.add(consultarSancion);
+        altaSancion.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                CardLayout cl = (CardLayout) Main.j.getLayout();
+                cl.show(Main.j,"AltaSancion");
+            }
+        });
+        bajaSancion.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                CardLayout cl = (CardLayout) Main.j.getLayout();
+                cl.show(Main.j,"BajaSancion");
+            }
+        });
 
         JMenu prestamos = new JMenu("Prestamos");
         jmb.add(prestamos);
