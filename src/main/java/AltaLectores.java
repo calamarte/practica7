@@ -11,8 +11,10 @@ public class AltaLectores {
     private JButton guardarButton;
     private JPanel AltaLectoresPanel;
     private JTextField nombre;
-    private JTextField apellidos;
     private JTextField dni;
+    private JComboBox comboBox1;
+    private JComboBox comboBox2;
+    private JComboBox comboBox3;
     private JTextField fecha;
     private DataBase db = new DataBase("localhost","root","");
 
