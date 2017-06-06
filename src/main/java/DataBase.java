@@ -19,14 +19,12 @@ public class DataBase {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost/practica",username,password);
-
         } catch (SQLException ex) {
             // handle any errors
             System.out.println("SQLException: " + ex.getMessage());
             System.out.println("SQLState: " + ex.getSQLState());
             System.out.println("VendorError: " + ex.getErrorCode());
         }
-
     }
 
     public void InsertPerson(String name, String dni, String fecha) throws Exception {
@@ -46,6 +44,12 @@ public class DataBase {
         stmt.execute("insert into libro values (default, '"+isbn+"', '"+titulo+"', '"+portada+"', '"+editorial+"', '"+paginas+"', '"+tematica+"', '"+autor+"');");
     }
 
+    public void InsertSancion(String descripcion, String fecha, String tipo, String prestamo) throws Exception {
+        Statement stmt;
+        stmt = conn.createStatement();
+        stmt.execute("insert into autor values (default, '"+descripcion+"', '"+fecha+"', '"+tipo+"', '"+prestamo+"');");
+    }
+
     public boolean login(String bibliotecario, String password){
         try {
         Statement stmt;
@@ -57,9 +61,5 @@ public class DataBase {
         }catch (Exception e){
             return false;
         }
-
-
-
-
     }
 }
