@@ -9,4 +9,11 @@ public class BajaLibro {
     private JTable table1;
     private JButton button2;
     private JButton button1;
+    private JPanel BajaLibroPanel;
+
+    public JPanel getBajaLibroPanel() {
+        return BajaLibroPanel;
+    }
 }
+
+
