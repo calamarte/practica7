@@ -26,7 +26,7 @@ public class AltaLectores {
         guardarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    db.InsertPerson(nombre.toString(),dni.toString(),fecha.toString());
+                    db.InsertPerson(nombre.getText(),dni.getText(),fecha.getText());
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }

@@ -30,7 +30,7 @@ public class AltaAutores {
         guardarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    db.InsertAutor(fecha.toString(), nacionalidad.toString(), alias.toString(), nombre.toString());
+                    db.InsertAutor(fecha.getText(), nacionalidad.getText(), alias.getText(), nombre.getText());
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }

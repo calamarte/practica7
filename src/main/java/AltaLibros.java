@@ -18,6 +18,7 @@ public class AltaLibros {
     private JTextField paginas;
     private JTextField editorial;
     private JTextField isbn;
+    private JTextField tematica;
     private DataBase db = new DataBase("localhost","root","");
 
     public AltaLibros() throws Exception {
@@ -30,7 +31,7 @@ public class AltaLibros {
             ok.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     try {
-                        //db.InsertAutor(fecha.toString(), nacionalidad.toString(), alias.toString(), nombre.toString());
+                        db.InsertLibro(isbn.getText(), titulo.getText(), portada.getText(), editorial.getText(), paginas.getText(), tematica.getText(), autor.getText());
                     } catch (Exception e1) {
                         e1.printStackTrace();
                     }
