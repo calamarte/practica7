@@ -29,8 +29,17 @@ public class DataBase {
         }
     }
 
-    public void InsertPerson(String name) throws Exception {
-
+    public void InsertPerson(String name, String dni, String fecha) throws Exception {
+        Statement stmt;
+        ResultSet rs;
+        stmt = conn.createStatement();
+        rs = stmt.executeQuery("insert into socio values (default, '"+name+"', '"+dni+"', '"+fecha+"');");
+    }
+    public void InsertAutor(String fecha, String nacionalidad, String alias, String nombre) throws Exception {
+        Statement stmt;
+        ResultSet rs;
+        stmt = conn.createStatement();
+        rs = stmt.executeQuery("insert into autor values (default, '"+fecha+"', '"+nacionalidad+"', '"+alias+"', '"+nombre+"');");
     }
 
     public boolean login(String bibliotecario, String password){

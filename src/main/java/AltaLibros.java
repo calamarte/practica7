@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 /**
  * Created by calamarte on 24/05/2017.
@@ -16,20 +18,27 @@ public class AltaLibros {
     private JTextField paginas;
     private JTextField editorial;
     private JTextField isbn;
+    private DataBase db = new DataBase("localhost","root","");
 
-    public AltaLibros() {
-        cancel.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                CardLayout cl = (CardLayout) Main.j.getLayout();
-                cl.show(Main.j,"Inicio");
-            }
-        });
-        ok.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                //Base de Datos
-            }
-        });
+    public AltaLibros() throws Exception {
+            cancel.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    CardLayout cl = (CardLayout) Main.j.getLayout();
+                    cl.show(Main.j,"Inicio");
+                }
+            });
+            ok.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    try {
+                        //db.InsertAutor(fecha.toString(), nacionalidad.toString(), alias.toString(), nombre.toString());
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    }
+
+                }
+            });
     }
+
 
     public JPanel getAltaLibrosPanel() {
         return AltaLibrosPanel;
