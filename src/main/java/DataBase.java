@@ -26,6 +26,7 @@ public class DataBase {
             System.out.println("SQLState: " + ex.getSQLState());
             System.out.println("VendorError: " + ex.getErrorCode());
         }
+
     }
 
     public void InsertPerson(String name, String dni, String fecha) throws Exception {
