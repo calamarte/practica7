@@ -38,10 +38,10 @@ public class DataBase {
         stmt.execute("insert into autor values (default, '"+fecha+"', '"+nacionalidad+"', '"+alias+"', '"+nombre+"');");
     }
 
-    public void InsertLibro(String isbn, String titulo, String portada, String editorial, String paginas, String tematica, String autor) throws Exception {
+    public void InsertLibro(String isbn, String titulo, String portada, String editorial, String paginas, String tematica, String autor,String sinopsis) throws Exception {
         Statement stmt;
         stmt = conn.createStatement();
-        stmt.execute("insert into libro values (default, '"+isbn+"', '"+titulo+"', '"+portada+"', '"+editorial+"', '"+paginas+"', '"+tematica+"', '"+autor+"');");
+        stmt.execute("insert into libro values (default, '"+isbn+"', '"+titulo+"','"+sinopsis+"' ,'"+portada+"', '"+editorial+"', '"+paginas+"', '"+tematica+"', '"+autor+"');");
     }
 
     public void InsertSancion(String descripcion, String fecha, String tipo, String prestamo) throws Exception {

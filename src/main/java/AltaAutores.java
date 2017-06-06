@@ -14,6 +14,7 @@ public class AltaAutores {
     private JTextField nacionalidad;
     private JTextField alias;
     private JTextField fecha;
+    private JPanel AltaAutorPanel;
     private JLabel Nombre_label;
     private JLabel Nacionalidad_label;
     private JLabel Alias_label;
@@ -37,5 +38,9 @@ public class AltaAutores {
 
             }
         });
+    }
+
+    public JPanel getAltaAutoresPanel() {
+        return AltaAutoresPanel;
     }
 }
