@@ -35,4 +35,7 @@ public class AltaSancion {
             }
         });
     }
+    public JPanel getAltaSancionPanel() {
+        return AltaSancionPanel;
+    }
 }

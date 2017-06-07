@@ -32,7 +32,7 @@ public class Main {
         j.add(i.getInicio(),"Inicio");
         j.add(ali.getAltaLibrosPanel(),"AltaLibros");
         j.add(bali.getBajaLibroPanel(),"BajaLibro");
-//        j.add(asa.getAltaSancionPanel(),"AltaSancion");
+        j.add(asa.getAltaSancionPanel(),"AltaSancion");
         j.add(aau.getAltaAutoresPanel(),"AltaAutores");
         j.add(ale.getAltaLectoresPanel(),"AltaLectores");
 
