@@ -22,7 +22,6 @@ public class DataBase {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost/practica",username,password);
         } catch (SQLException ex) {
-            // handle any errors
             System.out.println("SQLException: " + ex.getMessage());
             System.out.println("SQLState: " + ex.getSQLState());
             System.out.println("VendorError: " + ex.getErrorCode());
@@ -49,7 +48,42 @@ public class DataBase {
     public void InsertSancion(String descripcion, String fecha, String tipo, String prestamo) throws Exception {
         Statement stmt;
         stmt = conn.createStatement();
-        stmt.execute("insert into autor values (default, '"+descripcion+"', '"+fecha+"', '"+tipo+"', '"+prestamo+"');");
+        stmt.execute("insert into sancion values (default, '"+descripcion+"', '"+fecha+"', '"+tipo+"', '"+prestamo+"');");
+    }
+
+    public void InsertPrestamo(String socio, String libro, String bibliotecario, String fechainicial, String fechafinal) throws Exception {
+        Statement stmt;
+        stmt = conn.createStatement();
+        stmt.execute("insert into prestamo values ('"+libro+"', '"+socio+"', '"+bibliotecario+"', '"+fechainicial+"', '"+fechafinal+"');");
+    }
+
+    public void DeleteAutor(int id) throws Exception {
+        Statement stmt;
+        stmt = conn.createStatement();
+        stmt.execute("delete from autor where id = '"+id+"');");
+    }
+    public void DeleteLibro(int id) throws Exception {
+        Statement stmt;
+        stmt = conn.createStatement();
+        stmt.execute("delete from libro where id = '"+id+"');");
+    }
+
+    public void DeletePrestamo(int id) throws Exception {
+        Statement stmt;
+        stmt = conn.createStatement();
+        stmt.execute("delete from prestamo where id = '"+id+"');");
+    }
+
+    public void DeleteSancion(int id) throws Exception {
+        Statement stmt;
+        stmt = conn.createStatement();
+        stmt.execute("delete from sancion where id = '"+id+"');");
+    }
+
+    public void DeleteSocio(int id) throws Exception {
+        Statement stmt;
+        stmt = conn.createStatement();
+        stmt.execute("delete from socio where id = '"+id+"');");
     }
 
     public boolean login(String bibliotecario, String password){
