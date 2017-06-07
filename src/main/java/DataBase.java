@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -61,5 +63,21 @@ public class DataBase {
         }catch (Exception e){
             return false;
         }
+    }
+
+    public  Socio[] getSocios() throws SQLException {
+        List<Socio> socioList = new ArrayList<Socio>();
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT * FROM socio;");
+
+        while (rs.next()){
+            Socio s = new Socio(rs.getInt("id"),rs.getString("nombre"),rs.getString("dni"),rs.getString("fecha_nacimiento"));
+            socioList.add(s);
+        }
+        rs.close();
+        stmt.close();
+        Socio resultado[] = new Socio[socioList.size()];
+        socioList.toArray(resultado);
+        return resultado;
     }
 }
