@@ -22,6 +22,7 @@ public class Main {
         AltaLectores ale = new AltaLectores();
         AltaSancion asa = new AltaSancion();
         BajaLibro bali = new BajaLibro();
+        BajaSocio bsoc = new BajaSocio();
         ImageIcon img = new ImageIcon("C:\\Users\\calamarte\\Desktop\\Java\\practica7\\img\\estanteria.jpg");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setIconImage(img.getImage());
@@ -35,6 +36,7 @@ public class Main {
         j.add(asa.getAltaSancionPanel(),"AltaSancion");
         j.add(aau.getAltaAutoresPanel(),"AltaAutores");
         j.add(ale.getAltaLectoresPanel(),"AltaLectores");
+        j.add(bsoc.getBajaSocioPanel(), "BajaSocio");
 
 
         frame.setContentPane(j);
