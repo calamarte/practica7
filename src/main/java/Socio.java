@@ -1,5 +1,5 @@
 /**
- * Created by calamarte on 07/06/2017.
+ * Created by Dgarcia on 07/06/2017.
  */
 public class Socio {
     int id;
