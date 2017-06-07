@@ -36,27 +36,32 @@ public class BajaSocio {
                     public String getColumnName(int col){
                         switch (col){
                             case 0:
-                                return "usuario";
-                            case 1:
                                 return "nombre";
-                            case 2:
-                                return "dni";
-                            case 3:
-                                return "password";
                             case 1:
+                                return "dni";
+                            case 2:
                                 return "fecha de nacimiento";
                         }
                         throw new RuntimeException("imposible man");
                     }
 
                     public int getColumnCount() {
-                        return 5;
+                        return 3;
                     }
 
                     public Object getValueAt(int rowIndex, int columnIndex) {
-                        return null;
+                        Socio s = socios[rowIndex];
+                        switch(columnIndex) {
+                            case 0:
+                                return s.nombre;
+                            case 1:
+                                return s.dni;
+                            case 2:
+                                return s.fechaNa;
+                        }
+                        throw new RuntimeException("Impossible");
                     }
-                }
+                };
             }
         });
     }
