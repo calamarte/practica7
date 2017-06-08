@@ -35,17 +35,42 @@ public class AltaLibros {
         autores = db.getAutores();
         TableModel tm = new AbstractTableModel() {
             public int getRowCount() {
-                return 0;
+                return autores.length ;
+            }
+            public String getColumnName(int col){
+                switch (col){
+                    case 0:
+                        return "Nombre";
+                    case 1:
+                        return "Alias";
+                    case 2:
+                        return "Fecha de nacimiento";
+                    case 3:
+                        return "Nacionalidad";
+                }
+                throw new RuntimeException("imposible man");
             }
 
             public int getColumnCount() {
-                return 0;
+                return 4;
             }
 
             public Object getValueAt(int rowIndex, int columnIndex) {
-                return null;
+                Autor a = autores[rowIndex];
+                switch(columnIndex) {
+                    case 0:
+                        return a.nombre;
+                    case 1:
+                        return a.alias;
+                    case 2:
+                        return a.fecha;
+                    case 3:
+                        return a.nacionalidad;
+                }
+                throw new RuntimeException("Impossible");
             }
         };
+        table1.setModel(tm);
 
             cancel.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -63,6 +88,7 @@ public class AltaLibros {
 
                 }
             });
+
     }
 
 
