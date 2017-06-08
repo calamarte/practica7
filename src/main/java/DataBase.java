@@ -32,58 +32,68 @@ public class DataBase {
         Statement stmt;
         stmt = conn.createStatement();
         stmt.execute("insert into socio values (default, '"+name+"', '"+dni+"', '"+fecha+"');");
+        stmt.close();
     }
     public void InsertAutor(String fecha, String nacionalidad, String alias, String nombre) throws Exception {
         Statement stmt;
         stmt = conn.createStatement();
         stmt.execute("insert into autor values (default, '"+fecha+"', '"+nacionalidad+"', '"+alias+"', '"+nombre+"');");
+        stmt.close();
     }
 
     public void InsertLibro(String isbn, String titulo, String portada, String editorial, String paginas, String tematica, String autor,String sinopsis) throws Exception {
         Statement stmt;
         stmt = conn.createStatement();
         stmt.execute("insert into libro values (default, '"+isbn+"', '"+titulo+"','"+sinopsis+"' ,'"+portada+"', '"+editorial+"', '"+paginas+"', '"+tematica+"', '"+autor+"');");
+        stmt.close();
     }
 
     public void InsertSancion(String descripcion, String fecha, String tipo, String prestamo) throws Exception {
         Statement stmt;
         stmt = conn.createStatement();
         stmt.execute("insert into sancion values (default, '"+descripcion+"', '"+fecha+"', '"+tipo+"', '"+prestamo+"');");
+        stmt.close();
     }
 
     public void InsertPrestamo(String socio, String libro, String bibliotecario, String fechainicial, String fechafinal) throws Exception {
         Statement stmt;
         stmt = conn.createStatement();
         stmt.execute("insert into prestamo values ('"+libro+"', '"+socio+"', '"+bibliotecario+"', '"+fechainicial+"', '"+fechafinal+"');");
+        stmt.close();
     }
 
     public void DeleteAutor(int id) throws Exception {
         Statement stmt;
         stmt = conn.createStatement();
-        stmt.execute("delete from autor where id = '"+id+"');");
+        stmt.execute("delete from autor where id = '"+id+"';");
+        stmt.close();
     }
     public void DeleteLibro(int id) throws Exception {
         Statement stmt;
         stmt = conn.createStatement();
-        stmt.execute("delete from libro where id = '"+id+"');");
+        stmt.execute("delete from libro where id = '"+id+"';");
+        stmt.close();
     }
 
     public void DeletePrestamo(int id) throws Exception {
         Statement stmt;
         stmt = conn.createStatement();
-        stmt.execute("delete from prestamo where id = '"+id+"');");
+        stmt.execute("delete from prestamo where id = '"+id+"';");
+        stmt.close();
     }
 
     public void DeleteSancion(int id) throws Exception {
         Statement stmt;
         stmt = conn.createStatement();
-        stmt.execute("delete from sancion where id = '"+id+"');");
+        stmt.execute("delete from sancion where id = '"+id+"';");
+        stmt.close();
     }
 
     public void DeleteSocio(int id) throws Exception {
         Statement stmt;
         stmt = conn.createStatement();
-        stmt.execute("delete from socio where id = '"+id+"');");
+        stmt.execute("delete from socio where id = '"+id+"';");
+        stmt.close();
     }
 
     public boolean login(String bibliotecario, String password){
@@ -97,6 +107,7 @@ public class DataBase {
         }catch (Exception e){
             return false;
         }
+
     }
 
     public  Socio[] getSocios() throws SQLException {
