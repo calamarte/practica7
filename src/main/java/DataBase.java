@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -20,7 +22,7 @@ public class DataBase {
     public DataBase(String server, String username, String password) throws Exception {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/practica",username,password);
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/practica", username, password);
         } catch (SQLException ex) {
             System.out.println("SQLException: " + ex.getMessage());
             System.out.println("SQLState: " + ex.getSQLState());
@@ -31,105 +33,137 @@ public class DataBase {
     public void InsertPerson(String name, String dni, String fecha) throws Exception {
         Statement stmt;
         stmt = conn.createStatement();
-        stmt.execute("insert into socio values (default, '"+name+"', '"+dni+"', '"+fecha+"');");
-        stmt.close();
-    }
-    public void InsertAutor(String fecha, String nacionalidad, String alias, String nombre) throws Exception {
-        Statement stmt;
-        stmt = conn.createStatement();
-        stmt.execute("insert into autor values (default, '"+fecha+"', '"+nacionalidad+"', '"+alias+"', '"+nombre+"');");
+        stmt.execute("insert into socio  values (default, '" + name + "', '" + dni + "', '" + fecha + "');");
         stmt.close();
     }
 
-    public void InsertLibro(String isbn, String titulo, String portada, String editorial, String paginas, String tematica, String autor,String sinopsis) throws Exception {
+    public void InsertAutor(Date fecha, String nacionalidad, String alias, String nombre) throws Exception {
+        Statement stmt;
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String fechaStr = formatter.format(fecha);
+
+        stmt = conn.createStatement();
+        stmt.execute("insert into autor values (default, '" + fechaStr + "', '" + nacionalidad + "', '" + alias + "', '" + nombre + "');");
+        stmt.close();
+    }
+
+    public void InsertLibro(String isbn, String titulo, String portada, String editorial, String paginas, String tematica, String autor) throws Exception {
         Statement stmt;
         stmt = conn.createStatement();
-        stmt.execute("insert into libro values (default, '"+isbn+"', '"+titulo+"','"+sinopsis+"' ,'"+portada+"', '"+editorial+"', '"+paginas+"', '"+tematica+"', '"+autor+"');");
+        stmt.execute("insert into libro values (default, '" + isbn + "', '" + titulo + "','" + portada + "', '" + editorial + "', '" + paginas + "', '" + tematica + "', '" + autor + "');");
         stmt.close();
     }
 
     public void InsertSancion(String descripcion, String fecha, String tipo, String prestamo) throws Exception {
         Statement stmt;
         stmt = conn.createStatement();
-        stmt.execute("insert into sancion values (default, '"+descripcion+"', '"+fecha+"', '"+tipo+"', '"+prestamo+"');");
+        stmt.execute("insert into sancion values (default, '" + descripcion + "', '" + fecha + "', '" + tipo + "', '" + prestamo + "');");
         stmt.close();
     }
 
     public void InsertPrestamo(String socio, String libro, String bibliotecario, String fechainicial, String fechafinal) throws Exception {
         Statement stmt;
         stmt = conn.createStatement();
-        stmt.execute("insert into prestamo values ('"+libro+"', '"+socio+"', '"+bibliotecario+"', '"+fechainicial+"', '"+fechafinal+"');");
+        stmt.execute("insert into prestamo values ('" + libro + "', '" + socio + "', '" + bibliotecario + "', '" + fechainicial + "', '" + fechafinal + "');");
         stmt.close();
     }
 
     public void DeleteAutor(int id) throws Exception {
         Statement stmt;
         stmt = conn.createStatement();
-        stmt.execute("delete from autor where id = '"+id+"';");
         stmt.close();
     }
+
     public void DeleteLibro(int id) throws Exception {
         Statement stmt;
         stmt = conn.createStatement();
-        stmt.execute("delete from libro where id = '"+id+"';");
         stmt.close();
     }
 
     public void DeletePrestamo(int id) throws Exception {
         Statement stmt;
         stmt = conn.createStatement();
-        stmt.execute("delete from prestamo where id = '"+id+"';");
         stmt.close();
     }
 
     public void DeleteSancion(int id) throws Exception {
         Statement stmt;
         stmt = conn.createStatement();
-        stmt.execute("delete from sancion where id = '"+id+"';");
         stmt.close();
     }
 
     public void DeleteSocio(int id) throws Exception {
         Statement stmt;
         stmt = conn.createStatement();
-        stmt.execute("delete from socio where id = '"+id+"';");
         stmt.close();
     }
 
-    public boolean login(String bibliotecario, String password){
+    public boolean login(String bibliotecario, String password) {
         try {
-        Statement stmt;
-        ResultSet rs;
-        stmt = conn.createStatement();
-        rs = stmt.executeQuery("SELECT * FROM bibliotecario where usuario = '"+bibliotecario+"' and password = md5('"+password+"');");
-            if (rs.next())return true;
+            Statement stmt;
+            ResultSet rs;
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM bibliotecario where usuario = '" + bibliotecario + "' and password = md5('" + password + "');");
+            if (rs.next()) return true;
             else throw new Exception();
-        }catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
 
     }
 
-    public  Socio[] getSocios(String campo,String key) throws SQLException {
+    public Socio[] getSocios(String campo, String key) throws SQLException {
         List<Socio> socioList = new ArrayList<Socio>();
         Statement stmt = conn.createStatement();
         ResultSet rs;
 
 
-        if (campo.equals("Todos"))rs = stmt.executeQuery("SELECT * FROM socio;");
-        else if (campo.equals("Nombre"))rs = stmt.executeQuery("SELECT * FROM socio WHERE nombre = '"+key+"' ;");
-        else if (campo.equals("DNI"))rs = stmt.executeQuery("SELECT * FROM socio WHERE dni = '"+key+"';");
-        else if (campo.equals("Fecha de Nacimiento"))rs = stmt.executeQuery("SELECT * FROM socio WHERE fecha_nacimiento = '"+key+"';");
+        if (campo.equals("Todos")) rs = stmt.executeQuery("SELECT * FROM socio;");
+        else if (campo.equals("Nombre")) rs = stmt.executeQuery("SELECT * FROM socio WHERE nombre = '" + key + "' ;");
+        else if (campo.equals("DNI")) rs = stmt.executeQuery("SELECT * FROM socio WHERE dni = '" + key + "';");
+        else if (campo.equals("Fecha de Nacimiento"))
+            rs = stmt.executeQuery("SELECT * FROM socio WHERE fecha_nacimiento = '" + key + "';");
         else return null;
 
-        while (rs.next()){
-            Socio s = new Socio(rs.getInt("n_socio"),rs.getString("nombre"),rs.getString("dni"),rs.getString("fecha_nacimiento"));
+        while (rs.next()) {
+            Socio s = new Socio(rs.getInt("n_socio"), rs.getString("nombre"), rs.getString("dni"), rs.getString("fecha_nacimiento"));
             socioList.add(s);
         }
         rs.close();
         stmt.close();
         Socio resultado[] = new Socio[socioList.size()];
         socioList.toArray(resultado);
+        return resultado;
+    }
+
+    public Tematica[] getTematicas () throws SQLException {
+        List<Tematica> tematicaList  = new ArrayList<Tematica>();
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT * FROM tematica;");
+
+        while (rs.next()){
+            tematicaList.add(new Tematica(rs.getString("tipo")));
+        }
+        rs.close();
+        stmt.close();
+        Tematica resultado[] = new Tematica[tematicaList.size()];
+        tematicaList.toArray(resultado);
+        return resultado;
+    }
+
+    public Autor[] getAutores () throws SQLException {
+        List<Autor> autorList  = new ArrayList<Autor>();
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT * FROM autor;");
+
+        while (rs.next()){
+            autorList.add(new Autor(rs.getInt("id"),rs.getString("nombre"),rs.getString("nacionalidad"),rs.getString("alias"),rs.getString("fecha")));
+        }
+        rs.close();
+        stmt.close();
+        Autor[] resultado = new Autor[autorList.size()];
+        autorList.toArray(resultado);
         return resultado;
     }
 }
