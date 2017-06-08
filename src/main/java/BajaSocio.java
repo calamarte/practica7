@@ -1,6 +1,7 @@
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -15,7 +16,7 @@ public class BajaSocio {
     private JTextField textField1;
     private JButton buscarButton;
     private JPanel BajaSocioPanel;
-    JTable table = new JTable();
+    private JTable table;
     private DataBase db = new DataBase("localhost","root","");
     Socio socios [];
 
@@ -23,11 +24,13 @@ public class BajaSocio {
     public BajaSocio() throws Exception {
         buscarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                String s =  (String) comboBox1.getSelectedItem();
                 try {
-                    socios = db.getSocios();
+                    socios = db.getSocios(s,textField1.getText());
                 } catch (SQLException e1) {
                     e1.printStackTrace();
                 }
+
                 TableModel tm = new AbstractTableModel() {
                     public int getRowCount() {
                         return socios.length ;
@@ -36,11 +39,11 @@ public class BajaSocio {
                     public String getColumnName(int col){
                         switch (col){
                             case 0:
-                                return "nombre";
+                                return "Nombre";
                             case 1:
-                                return "dni";
+                                return "DNI";
                             case 2:
-                                return "fecha de nacimiento";
+                                return "Fecha de nacimiento";
                         }
                         throw new RuntimeException("imposible man");
                     }
@@ -62,8 +65,10 @@ public class BajaSocio {
                         throw new RuntimeException("Impossible");
                     }
                 };
+                table.setModel(tm);
             }
         });
+
     }
 
     public JPanel getBajaSocioPanel() {

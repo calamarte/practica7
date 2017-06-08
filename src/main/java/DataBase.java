@@ -110,13 +110,20 @@ public class DataBase {
 
     }
 
-    public  Socio[] getSocios() throws SQLException {
+    public  Socio[] getSocios(String campo,String key) throws SQLException {
         List<Socio> socioList = new ArrayList<Socio>();
         Statement stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT * FROM socio;");
+        ResultSet rs;
+
+
+        if (campo.equals("Todos"))rs = stmt.executeQuery("SELECT * FROM socio;");
+        else if (campo.equals("Nombre"))rs = stmt.executeQuery("SELECT * FROM socio WHERE nombre = '"+key+"' ;");
+        else if (campo.equals("DNI"))rs = stmt.executeQuery("SELECT * FROM socio WHERE dni = '"+key+"';");
+        else if (campo.equals("Fecha de Nacimiento"))rs = stmt.executeQuery("SELECT * FROM socio WHERE fecha_nacimiento = '"+key+"';");
+        else return null;
 
         while (rs.next()){
-            Socio s = new Socio(rs.getInt("id"),rs.getString("nombre"),rs.getString("dni"),rs.getString("fecha_nacimiento"));
+            Socio s = new Socio(rs.getInt("n_socio"),rs.getString("nombre"),rs.getString("dni"),rs.getString("fecha_nacimiento"));
             socioList.add(s);
         }
         rs.close();
