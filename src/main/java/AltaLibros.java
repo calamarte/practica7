@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,14 +20,33 @@ public class AltaLibros {
     private JTextField paginas;
     private JTextField editorial;
     private JTextField isbn;
-    private JTextField tematica;
-    private JTextArea sinopsis;
-    private JTable table;
+    private JTable table1;
+    private JComboBox temas;
     private DataBase db = new DataBase("localhost","root","");
+    private Autor[] autores;
 
-    
 
     public AltaLibros() throws Exception {
+        Tematica[] t = db.getTematicas();
+        for (int i = 0; i < t.length; i++) {
+            temas.addItem(t[i].getTipo());
+        }
+
+        autores = db.getAutores();
+        TableModel tm = new AbstractTableModel() {
+            public int getRowCount() {
+                return 0;
+            }
+
+            public int getColumnCount() {
+                return 0;
+            }
+
+            public Object getValueAt(int rowIndex, int columnIndex) {
+                return null;
+            }
+        };
+
             cancel.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     CardLayout cl = (CardLayout) Main.j.getLayout();
@@ -35,7 +56,7 @@ public class AltaLibros {
             ok.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     try {
-                        db.InsertLibro(isbn.getText(), titulo.getText(), portada.getText(), editorial.getText(), paginas.getText(), tematica.getText(), autor.getText(),sinopsis.getText());
+                        db.InsertLibro(isbn.getText(), titulo.getText(), portada.getText(), editorial.getText(), paginas.getText(), (String) temas.getSelectedItem(), autor.getText());
                     } catch (Exception e1) {
                         e1.printStackTrace();
                     }

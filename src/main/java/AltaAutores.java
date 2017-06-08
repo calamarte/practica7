@@ -2,6 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 /**
  * Created by Dgarcia on 01/06/2017.
@@ -30,8 +33,15 @@ public class AltaAutores {
         });
         guardarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                Date date = null;
                 try {
-                    db.InsertAutor(fecha.getText(), nacionalidad.getText(), alias.getText(), nombre.getText());
+                    date = sdf.parse(fecha.getText());
+                } catch (ParseException e1) {
+                    e1.printStackTrace();
+                }
+                try {
+                    db.InsertAutor(date, nacionalidad.getText(), alias.getText(), nombre.getText());
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }

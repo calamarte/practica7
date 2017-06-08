@@ -25,7 +25,6 @@ public class Main {
         BajaLibro bali = new BajaLibro();
         BajaSocio bsoc = new BajaSocio();
         BajaSancion bsan = new BajaSancion();
-        BajaAutores bau = new BajaAutores();
         ImageIcon img = new ImageIcon("C:\\Users\\calamarte\\Desktop\\Java\\practica7\\img\\estanteria.jpg");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setIconImage(img.getImage());
@@ -39,7 +38,6 @@ public class Main {
         j.add(asa.getAltaSancionPanel(),"AltaSancion");
         j.add(bsan.getBajaSancionPanel(), "BajaSancion");
         j.add(aau.getAltaAutoresPanel(),"AltaAutores");
-        j.add(bau.getBajaAutoresPanel(), "BajaAutores");
         j.add(ale.getAltaLectoresPanel(),"AltaLectores");
         j.add(bsoc.getBajaSocioPanel(), "BajaSocio");
         j.add(apre.getAltaPrestamoPanel(),"AltaPrestamo");
