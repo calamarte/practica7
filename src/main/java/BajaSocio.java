@@ -74,6 +74,4 @@ public class BajaSocio {
     public JPanel getBajaSocioPanel() {
         return BajaSocioPanel;
     }
-
-
 }

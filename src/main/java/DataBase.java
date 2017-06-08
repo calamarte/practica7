@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -31,13 +33,17 @@ public class DataBase {
     public void InsertPerson(String name, String dni, String fecha) throws Exception {
         Statement stmt;
         stmt = conn.createStatement();
-        stmt.execute("insert into socio values (default, '"+name+"', '"+dni+"', '"+fecha+"');");
+        stmt.execute("insert into socio  values (default, '"+name+"', '"+dni+"', '"+fecha+"');");
         stmt.close();
     }
-    public void InsertAutor(String fecha, String nacionalidad, String alias, String nombre) throws Exception {
+    public void InsertAutor(Date fecha, String nacionalidad, String alias, String nombre) throws Exception {
         Statement stmt;
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String fechaStr = formatter.format(fecha);
+
         stmt = conn.createStatement();
-        stmt.execute("insert into autor values (default, '"+fecha+"', '"+nacionalidad+"', '"+alias+"', '"+nombre+"');");
+        stmt.execute("insert into autor values (default, '"+fechaStr+"', '"+nacionalidad+"', '"+alias+"', '"+nombre+"');");
         stmt.close();
     }
 
@@ -65,34 +71,29 @@ public class DataBase {
     public void DeleteAutor(int id) throws Exception {
         Statement stmt;
         stmt = conn.createStatement();
-        stmt.execute("delete from autor where id = '"+id+"';");
         stmt.close();
     }
     public void DeleteLibro(int id) throws Exception {
         Statement stmt;
         stmt = conn.createStatement();
-        stmt.execute("delete from libro where id = '"+id+"';");
         stmt.close();
     }
 
     public void DeletePrestamo(int id) throws Exception {
         Statement stmt;
         stmt = conn.createStatement();
-        stmt.execute("delete from prestamo where id = '"+id+"';");
         stmt.close();
     }
 
     public void DeleteSancion(int id) throws Exception {
         Statement stmt;
         stmt = conn.createStatement();
-        stmt.execute("delete from sancion where id = '"+id+"';");
         stmt.close();
     }
 
     public void DeleteSocio(int id) throws Exception {
         Statement stmt;
         stmt = conn.createStatement();
-        stmt.execute("delete from socio where id = '"+id+"';");
         stmt.close();
     }
 

@@ -20,7 +20,10 @@ public class AltaLibros {
     private JTextField isbn;
     private JTextField tematica;
     private JTextArea sinopsis;
+    private JTable table;
     private DataBase db = new DataBase("localhost","root","");
+
+    
 
     public AltaLibros() throws Exception {
             cancel.addActionListener(new ActionListener() {
