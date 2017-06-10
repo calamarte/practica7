@@ -4,8 +4,9 @@ import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.util.*;
+import java.util.List;
+
 
 /**
  * Created by calamarte on 24/05/2017.
@@ -69,6 +70,7 @@ public class AltaLibros {
                 }
                 throw new RuntimeException("Impossible");
             }
+
         };
         table1.setModel(tm);
 
@@ -80,14 +82,16 @@ public class AltaLibros {
             });
             ok.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
+                    int row = table1.getSelectedRow();
+                    Libro l = new Libro(0,isbn.getText(),titulo.getText(),portada.getText(),editorial.getText(),Integer.parseInt(paginas.getText()),(String) temas.getSelectedItem());
                     try {
-                        db.InsertLibro(isbn.getText(), titulo.getText(), portada.getText(), editorial.getText(), paginas.getText(), (String) temas.getSelectedItem(), autor.getText());
+                        db.InsertLibro(l,autores[row]);
                     } catch (Exception e1) {
                         e1.printStackTrace();
                     }
-
                 }
             });
+
 
     }
 

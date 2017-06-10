@@ -7,12 +7,10 @@ public class Libro {
     String titulo;
     String portada;
     String editorial;
-    String paginas;
+    int paginas;
     String tematica;
-    String autor;
-    String sinopsis;
 
-    public Libro(int id, String isbn, String titulo, String portada, String editorial, String paginas, String tematica, String autor, String sinopsis){
+    public Libro(int id, String isbn, String titulo, String portada, String editorial, int paginas, String tematica){
         this.id = id;
         this.isbn= isbn;
         this.titulo = titulo;
@@ -20,7 +18,33 @@ public class Libro {
         this.editorial = editorial;
         this.paginas = paginas;
         this.tematica = tematica;
-        this.autor = autor;
-        this.sinopsis = sinopsis;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public int getPaginas() {
+        return paginas;
+    }
+
+    public String getPortada() {
+        return portada;
+    }
+
+    public String getEditorial() {
+        return editorial;
+    }
+
+    public String getTematica() {
+        return tematica;
     }
 }

@@ -1,4 +1,3 @@
-import java.util.Date;
 
 /**
  * Created by Dgarcia on 07/06/2017.
@@ -16,5 +15,17 @@ public class Autor {
         this.nacionalidad = nacionalidad;
         this.alias = alias;
         this.fecha = fecha;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getNacionalidad() {
+        return nacionalidad;
+    }
+
+    public String getNombre() {
+        return nombre;
     }
 }

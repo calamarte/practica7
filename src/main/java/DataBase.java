@@ -48,10 +48,13 @@ public class DataBase {
         stmt.close();
     }
 
-    public void InsertLibro(String isbn, String titulo, String portada, String editorial, String paginas, String tematica, String autor) throws Exception {
+    public void InsertLibro(Object libro,Object autor) throws Exception {
+        Libro l = (Libro) libro;
+        Autor a = (Autor) autor;
         Statement stmt;
         stmt = conn.createStatement();
-        stmt.execute("insert into libro values (default, '" + isbn + "', '" + titulo + "','" + portada + "', '" + editorial + "', '" + paginas + "', '" + tematica + "', '" + autor + "');");
+        stmt.execute("insert into libro (id,isbn,titulo,portada,editorial,n_paginas,tipo_tematica) values (default, '" + l.getIsbn() + "', '" + l.getTitulo() + "','" + l.getPortada() + "', '" + l.getEditorial() + "', '" + l.getPaginas() + "', '" + l.getTematica() + "');");
+        stmt.execute("INSERT INTO libro_autor (id_libro,id_autor) VALUES ((SELECT MAX(id) FROM libro),"+a.getId()+ ");");
         stmt.close();
     }
 
@@ -158,7 +161,7 @@ public class DataBase {
         ResultSet rs = stmt.executeQuery("SELECT * FROM autor;");
 
         while (rs.next()){
-            autorList.add(new Autor(rs.getInt("id"),rs.getString("nombre"),rs.getString("nacionalidad"),rs.getString("alias"),rs.getString("fecha")));
+            autorList.add(new Autor(rs.getInt("id"),rs.getString("nombre"),rs.getString("nacionalidad"),rs.getString("alias"),rs.getString("fecha_nacimiento")));
         }
         rs.close();
         stmt.close();
