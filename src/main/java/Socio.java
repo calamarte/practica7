@@ -1,17 +1,37 @@
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  * Created by Dgarcia on 07/06/2017.
  */
 public class Socio {
-    int id;
-    String nombre;
-    String dni;
-    String fechaNa;
+    private int id;
+    private String nombre;
+    private String dni;
+    private Calendar fechaNa;
 
 
-    public Socio(int id,String nombre,String dni,String fechaNa){
+    public Socio(int id,String nombre,String dni,Calendar fechaNa){
         this.id = id;
         this.nombre = nombre;
         this.dni = dni;
         this.fechaNa = fechaNa;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getDni() {
+        return dni;
+    }
+
+    public Calendar getFechaNa() {
+        return fechaNa;
     }
 }

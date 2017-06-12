@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.text.ParseException;
 
 /**
  * Created by Dgarcia on 01/06/2017.
@@ -28,6 +29,8 @@ public class BajaSocio {
                 try {
                     socios = db.getSocios(s,textField1.getText());
                 } catch (SQLException e1) {
+                    e1.printStackTrace();
+                } catch (ParseException e1) {
                     e1.printStackTrace();
                 }
 
@@ -56,11 +59,11 @@ public class BajaSocio {
                         Socio s = socios[rowIndex];
                         switch(columnIndex) {
                             case 0:
-                                return s.nombre;
+                                return s.getNombre();
                             case 1:
-                                return s.dni;
+                                return s.getDni();
                             case 2:
-                                return s.fechaNa;
+                                return s.getFechaNa();
                         }
                         throw new RuntimeException("Impossible");
                     }

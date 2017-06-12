@@ -118,7 +118,7 @@
               <text value="Día"/>
             </properties>
           </component>
-          <component id="a0dc2" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">
+          <component id="a0dc2" class="javax.swing.JComboBox" binding="dia">
             <constraints/>
             <properties>
               <model>
@@ -162,9 +162,24 @@
               <text value="Mes"/>
             </properties>
           </component>
-          <component id="173e5" class="javax.swing.JComboBox" binding="comboBox2" default-binding="true">
+          <component id="173e5" class="javax.swing.JComboBox" binding="mes">
             <constraints/>
-            <properties/>
+            <properties>
+              <model>
+                <item value="1"/>
+                <item value="2"/>
+                <item value="3"/>
+                <item value="4"/>
+                <item value="5"/>
+                <item value="6"/>
+                <item value="7"/>
+                <item value="8"/>
+                <item value="9"/>
+                <item value="10"/>
+                <item value="11"/>
+                <item value="12"/>
+              </model>
+            </properties>
           </component>
           <component id="ff05e" class="javax.swing.JLabel">
             <constraints/>
@@ -172,10 +187,11 @@
               <text value="Año"/>
             </properties>
           </component>
-          <component id="a2c40" class="javax.swing.JComboBox" binding="comboBox3" default-binding="true">
+          <component id="a2c40" class="javax.swing.JComboBox" binding="year">
             <constraints/>
             <properties>
               <editable value="false"/>
+              <model/>
             </properties>
           </component>
         </children>

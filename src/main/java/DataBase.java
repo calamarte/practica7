@@ -4,8 +4,11 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -30,10 +33,12 @@ public class DataBase {
         }
     }
 
-    public void InsertPerson(String name, String dni, String fecha) throws Exception {
+    public void insertSocio(Object socio) throws Exception {
+        Socio s = (Socio) socio;
+        String fecha = calendarToString(s.getFechaNa());
         Statement stmt;
         stmt = conn.createStatement();
-        stmt.execute("insert into socio  values (default, '" + name + "', '" + dni + "', '" + fecha + "');");
+        stmt.execute("insert into socio (n_socio,nombre,dni,fecha_nacimiento) values (default, '" + s.getNombre() + "', '" + s.getDni() + "', '" + fecha + "');");
         stmt.close();
     }
 
@@ -53,7 +58,10 @@ public class DataBase {
         Autor a = (Autor) autor;
         Statement stmt;
         stmt = conn.createStatement();
-        stmt.execute("insert into libro (id,isbn,titulo,portada,editorial,n_paginas,tipo_tematica) values (default, '" + l.getIsbn() + "', '" + l.getTitulo() + "','" + l.getPortada() + "', '" + l.getEditorial() + "', '" + l.getPaginas() + "', '" + l.getTematica() + "');");
+        stmt.execute("insert into libro (id,isbn,titulo,portada,editorial,n_paginas,tipo_tematica) values (default," +
+                " '" + l.getIsbn() + "', '" + l.getTitulo() + "','" + l.getPortada() + "', '" + l.getEditorial() + "'," +
+                " '" + l.getPaginas() + "', '" + l.getTematica() + "');");
+
         stmt.execute("INSERT INTO libro_autor (id_libro,id_autor) VALUES ((SELECT MAX(id) FROM libro),"+a.getId()+ ");");
         stmt.close();
     }
@@ -116,7 +124,7 @@ public class DataBase {
 
     }
 
-    public Socio[] getSocios(String campo, String key) throws SQLException {
+    public Socio[] getSocios(String campo, String key) throws SQLException, ParseException {
         List<Socio> socioList = new ArrayList<Socio>();
         Statement stmt = conn.createStatement();
         ResultSet rs;
@@ -130,7 +138,12 @@ public class DataBase {
         else return null;
 
         while (rs.next()) {
-            Socio s = new Socio(rs.getInt("n_socio"), rs.getString("nombre"), rs.getString("dni"), rs.getString("fecha_nacimiento"));
+            DateFormat df = new SimpleDateFormat("yyy-MM-dd");
+            Date date = (Date) df.parse(rs.getString("fecha_nacimiento"));
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
+            Socio s = new Socio(rs.getInt("n_socio"), rs.getString("nombre"), rs.getString("dni"),
+                    getCalendarDate(rs.getString("fecha_nacimiento")));
             socioList.add(s);
         }
         rs.close();
@@ -168,5 +181,19 @@ public class DataBase {
         Autor[] resultado = new Autor[autorList.size()];
         autorList.toArray(resultado);
         return resultado;
+    }
+
+    private Calendar getCalendarDate(String s) throws ParseException {
+        DateFormat df = new SimpleDateFormat("yyy-MM-dd");
+        Date date = (Date) df.parse(s);
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        return cal;
+    }
+
+    private String calendarToString(Calendar c){
+        Calendar cal = c;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd");
+        return sdf.format(c.getTime());
     }
 }
