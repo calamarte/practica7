@@ -138,10 +138,6 @@ public class DataBase {
         else return null;
 
         while (rs.next()) {
-            DateFormat df = new SimpleDateFormat("yyy-MM-dd");
-            Date date = (Date) df.parse(rs.getString("fecha_nacimiento"));
-            Calendar cal = Calendar.getInstance();
-            cal.setTime(date);
             Socio s = new Socio(rs.getInt("n_socio"), rs.getString("nombre"), rs.getString("dni"),
                     getCalendarDate(rs.getString("fecha_nacimiento")));
             socioList.add(s);
