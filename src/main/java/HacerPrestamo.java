@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 import java.text.SimpleDateFormat;
@@ -9,7 +10,6 @@ import java.util.Calendar;
  */
 public class HacerPrestamo {
     private JTable tableSocio;
-    private JTable table1;
     private JTextField textField1;
     private JComboBox fFDia;
     private JComboBox fFMes;
@@ -17,8 +17,10 @@ public class HacerPrestamo {
     private JButton aceptarButton;
     private JButton cancelarButton;
     private JPanel HacerPrestamoPanel;
+    private JTable tableLibro;
     private DataBase db = new DataBase("localhost","root","");
     private Socio[] socios;
+    private Libro[] libros;
 
     HacerPrestamo() throws Exception {
         int y = Calendar.getInstance().get(Calendar.YEAR);
@@ -26,8 +28,9 @@ public class HacerPrestamo {
             fFAno.addItem(i);
         }
 
+        libros = db.getLibros();
         socios = db.getSocios("Todos",null);
-        TableModel tm = new AbstractTableModel() {
+        TableModel tmSocio = new AbstractTableModel() {
             public int getRowCount() {
                 return socios.length ;
             }
@@ -55,24 +58,62 @@ public class HacerPrestamo {
                     case 1:
                         return s.getDni();
                     case 2:
-                        return calendarToString(s.getFechaNa());
+                        return Util.calendarToString(s.getFechaNa());
                 }
                 throw new RuntimeException("Impossible");
             }
 
         };
 
-        tableSocio.setModel(tm);
+        tableSocio.setModel(tmSocio);
 
+        TableModel tmLibro = new AbstractTableModel() {
+            public int getRowCount() {
+                return libros.length ;
+            }
+            public String getColumnName(int col){
+                switch (col){
+                    case 0:
+                        return "Titulo";
+                    case 1:
+                        return "Tematica";
+                    case 2:
+                        return "Editorial";
+                    case 3:
+                        return "ISBN";
+                    case 4:
+                        return "Páginas";
+
+                }
+                throw new RuntimeException("imposible man");
+            }
+
+            public int getColumnCount() {
+                return 5;
+            }
+
+            public Object getValueAt(int rowIndex, int columnIndex) {
+                Libro l = libros[rowIndex];
+                switch(columnIndex) {
+                    case 0:
+                        return l.getTitulo();
+                    case 1:
+                        return l.getTematica();
+                    case 2:
+                        return l.getEditorial();
+                    case 3:
+                        return l.getIsbn();
+                    case 4:
+                        return l.getPaginas();
+                }
+                throw new RuntimeException("Impossible");
+            }
+        };
+        tableLibro.setModel(tmLibro);
     }
 
     public JPanel getHacerPrestamoPanel() {
         return HacerPrestamoPanel;
     }
 
-    private String calendarToString(Calendar c){
-        Calendar cal = c;
-        SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd");
-        return sdf.format(c.getTime());
-    }
 }

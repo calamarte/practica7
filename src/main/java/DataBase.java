@@ -35,7 +35,7 @@ public class DataBase {
 
     public void insertSocio(Object socio) throws Exception {
         Socio s = (Socio) socio;
-        String fecha = calendarToString(s.getFechaNa());
+        String fecha = Util.calendarToString(s.getFechaNa());
         Statement stmt;
         stmt = conn.createStatement();
         stmt.execute("insert into socio (n_socio,nombre,dni,fecha_nacimiento) values (default, '" + s.getNombre() + "', '" + s.getDni() + "', '" + fecha + "');");
@@ -139,7 +139,7 @@ public class DataBase {
 
         while (rs.next()) {
             Socio s = new Socio(rs.getInt("n_socio"), rs.getString("nombre"), rs.getString("dni"),
-                    getCalendarDate(rs.getString("fecha_nacimiento")));
+                   Util.getCalendarDate(rs.getString("fecha_nacimiento")));
             socioList.add(s);
         }
         rs.close();
@@ -170,7 +170,9 @@ public class DataBase {
         ResultSet rs = stmt.executeQuery("SELECT * FROM autor;");
 
         while (rs.next()){
-            autorList.add(new Autor(rs.getInt("id"),rs.getString("nombre"),rs.getString("nacionalidad"),rs.getString("alias"),rs.getString("fecha_nacimiento")));
+            autorList.add(new Autor(rs.getInt("id"),rs.getString("nombre"),
+                    rs.getString("nacionalidad"),rs.getString("alias"),
+                    rs.getString("fecha_nacimiento")));
         }
         rs.close();
         stmt.close();
@@ -179,17 +181,21 @@ public class DataBase {
         return resultado;
     }
 
-    private Calendar getCalendarDate(String s) throws ParseException {
-        DateFormat df = new SimpleDateFormat("yyy-MM-dd");
-        Date date = (Date) df.parse(s);
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        return cal;
-    }
+    public Libro[] getLibros() throws SQLException {
+        List<Libro> libroList = new ArrayList<Libro>();
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT * FROM libro;");
 
-    private String calendarToString(Calendar c){
-        Calendar cal = c;
-        SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd");
-        return sdf.format(c.getTime());
+        while (rs.next()){
+            libroList.add(new Libro(rs.getInt("id"),rs.getString("isbn"),
+                    rs.getString("titulo"),rs.getString("portada"),
+                    rs.getString("editorial"),rs.getInt("n_paginas"),
+                    rs.getString("tipo_tematica")));
+        }
+        rs.close();
+        stmt.close();
+        Libro[] resultado = new Libro[libroList.size()];
+        libroList.toArray(resultado);
+        return resultado;
     }
 }
