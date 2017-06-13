@@ -4,8 +4,6 @@ import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.*;
-import java.util.List;
 
 
 /**
@@ -85,7 +83,7 @@ public class AltaLibros {
                     int row = table1.getSelectedRow();
                     Libro l = new Libro(0,isbn.getText(),titulo.getText(),portada.getText(),editorial.getText(),Integer.parseInt(paginas.getText()),(String) temas.getSelectedItem());
                     try {
-                        db.InsertLibro(l,autores[row]);
+                        db.insertLibro(l,autores[row]);
                     } catch (Exception e1) {
                         e1.printStackTrace();
                     }

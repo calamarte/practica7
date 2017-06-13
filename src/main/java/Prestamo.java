@@ -4,15 +4,17 @@ import java.util.Calendar;
  * Created by Dgarcia on 07/06/2017.
  */
 public class Prestamo {
-    int idPrestamo;
-    Calendar fechaInicial;
-    Calendar fechaFinal;
-    Libro libro;
-    Socio socio;
-    Bibliotecario bibliotecario;
+    private int idPrestamo;
+    private Calendar fechaInicial;
+    private Calendar fechaFinal;
+    private int nCopia;
+    private Libro libro;
+    private Socio socio;
+    private Bibliotecario bibliotecario;
 
-    public Prestamo(int idPrestamo,Calendar fechaInicial, Calendar fechaFinal, Libro libro, Socio socio,Bibliotecario bibliotecario){
+    public Prestamo(int idPrestamo,Calendar fechaInicial, Calendar fechaFinal, Libro libro, Socio socio,Bibliotecario bibliotecario,int nCopia){
         this.idPrestamo = idPrestamo;
+        this.nCopia = nCopia;
         this.fechaInicial = fechaInicial;
         this.fechaFinal = fechaFinal;
         this.libro = libro;
@@ -38,6 +40,10 @@ public class Prestamo {
 
     public Socio getSocio() {
         return socio;
+    }
+
+    public int getnCopia() {
+        return nCopia;
     }
 
     public Bibliotecario getBibliotecario() {

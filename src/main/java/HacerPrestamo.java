@@ -2,15 +2,19 @@ import javax.swing.*;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 /**
  * Created by calamarte on 12/06/2017.
  */
 public class HacerPrestamo {
     private JTable tableSocio;
-    private JTextField textField1;
+    private JTextField nCopia;
     private JComboBox fFDia;
     private JComboBox fFMes;
     private JComboBox fFAno;
@@ -25,7 +29,7 @@ public class HacerPrestamo {
     HacerPrestamo() throws Exception {
         int y = Calendar.getInstance().get(Calendar.YEAR);
         for (int i = y; i < y+120 ; i++) {
-            fFAno.addItem(i);
+            fFAno.addItem(i+"");
         }
 
         libros = db.getLibros();
@@ -110,7 +114,31 @@ public class HacerPrestamo {
             }
         };
         tableLibro.setModel(tmLibro);
+
+        aceptarButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Calendar c = new GregorianCalendar(Integer.parseInt((String) fFAno.getSelectedItem()),
+                        Integer.parseInt((String) fFMes.getSelectedItem()),Integer.parseInt((String) fFDia.getSelectedItem()));
+
+                Prestamo p = new Prestamo(0,null,c,libros[tableLibro.getSelectedRow()],socios[tableSocio.getSelectedRow()],Main.bi,Integer.parseInt(nCopia.getText()));
+
+                try {
+                    db.insertPrestamo(p);
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
+
+        cancelarButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                CardLayout cl = (CardLayout) Main.j.getLayout();
+                cl.show(Main.j,"Inicio");
+            }
+        });
     }
+
+
 
     public JPanel getHacerPrestamoPanel() {
         return HacerPrestamoPanel;

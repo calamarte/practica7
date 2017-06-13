@@ -18,6 +18,23 @@ public class Bibliotecario {
        this.fechaNacimiento = fechaNacimiento;
    }
 
+//   public Bibliotecario(String usuario,String password){
+//       this.usuario = usuario;
+//       this.password = password;
+//   }
+//
+//    public void setNombre(String nombre) {
+//        this.nombre = nombre;
+//    }
+//
+//    public void setDni(String dni) {
+//        this.dni = dni;
+//    }
+//
+//    public void setFechaNacimiento(Calendar fechaNacimiento) {
+//        this.fechaNacimiento = fechaNacimiento;
+//    }
+
     public String getDni() {
         return dni;
     }

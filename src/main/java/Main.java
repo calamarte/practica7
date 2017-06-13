@@ -11,6 +11,7 @@ public class Main {
     static JFrame frame = new JFrame("La Biblioteca");
     static JPanel j = new JPanel();
     static JMenuBar jmb = new JMenuBar();
+    static Bibliotecario bi;
 
     public static void main(String[] args)throws Exception {
         setMenu();

@@ -53,7 +53,7 @@ public class DataBase {
         stmt.close();
     }
 
-    public void InsertLibro(Object libro,Object autor) throws Exception {
+    public void insertLibro(Object libro, Object autor) throws Exception {
         Libro l = (Libro) libro;
         Autor a = (Autor) autor;
         Statement stmt;
@@ -73,10 +73,14 @@ public class DataBase {
         stmt.close();
     }
 
-    public void InsertPrestamo(String socio, String libro, String bibliotecario, String fechainicial, String fechafinal) throws Exception {
+    public void insertPrestamo(Object prestamo) throws Exception {
+        Prestamo p =(Prestamo) prestamo;
+
         Statement stmt;
         stmt = conn.createStatement();
-        stmt.execute("insert into prestamo values ('" + libro + "', '" + socio + "', '" + bibliotecario + "', '" + fechainicial + "', '" + fechafinal + "');");
+        stmt.execute("insert into prestamo (id,id_libro,n_socio_socio,usuario_bibliotecario,n_copia,fecha_inicial,fecha_final)" +
+                " values (DEFAULT , '" + p.getLibro().getId() + "', '" + p.getSocio().getId() + "'," +
+                " '" + Main.bi.getUsuario() + "', '" + p.getnCopia() + "',now(),'"+Util.calendarToString(p.getFechaFinal())+"');");
         stmt.close();
     }
 
@@ -122,6 +126,19 @@ public class DataBase {
             return false;
         }
 
+    }
+
+    public Bibliotecario getBibliotecario(String usuario,String passwd) throws SQLException, ParseException {
+        Statement stmt;
+        stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT * FROM bibliotecario WHERE usuario = '"+usuario+"' AND " +
+                "password = MD5('"+passwd+"');");
+        rs.next();
+        Bibliotecario bi = new Bibliotecario(rs.getString("usuario"),rs.getString("nombre"),
+                rs.getString("dni"),rs.getString("password"),
+                Util.getCalendarDate(rs.getString("fecha_nacimiento")));
+        stmt.close();
+        return bi;
     }
 
     public Socio[] getSocios(String campo, String key) throws SQLException, ParseException {
