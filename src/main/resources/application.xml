@@ -1,0 +1,14 @@
+<properties>
+    <username>
+        calamarte
+    </username>
+    <password>
+        12345
+    </password>
+    <database>
+        practica
+    </database>
+    <server>
+        localhost
+    </server>
+</properties>
