@@ -78,9 +78,9 @@ public class DataBase {
 
         Statement stmt;
         stmt = conn.createStatement();
-        stmt.execute("insert into prestamo (id,id_libro,n_socio_socio,usuario_bibliotecario,n_copia,fecha_inicial,fecha_final)" +
+        stmt.execute("insert into prestamo (id,id_libro,n_socio_socio,usuario_bibliotecario,n_copia,fecha_inicial,fecha_final,entregado)" +
                 " values (DEFAULT , '" + p.getLibro().getId() + "', '" + p.getSocio().getId() + "'," +
-                " '" + Main.bi.getUsuario() + "', '" + p.getnCopia() + "',now(),'"+Util.calendarToString(p.getFechaFinal())+"');");
+                " '" + Main.bi.getUsuario() + "', '" + p.getnCopia() + "',now(),'"+Util.calendarToString(p.getFechaFinal())+"',FALSE);");
         stmt.close();
     }
 
@@ -108,9 +108,11 @@ public class DataBase {
         stmt.close();
     }
 
-    public void DeleteSocio(int id) throws Exception {
+    public void DeleteSocio(Object socio) throws Exception {
+        Socio s = (Socio) socio;
         Statement stmt;
         stmt = conn.createStatement();
+        stmt.execute("UPDATE socio SET fecha_baja = now() WHERE n_socio = '"+s.getId()+"';");
         stmt.close();
     }
 
@@ -147,9 +149,9 @@ public class DataBase {
         ResultSet rs;
 
 
-        if (campo.equals("Todos")) rs = stmt.executeQuery("SELECT * FROM socio;");
-        else if (campo.equals("Nombre")) rs = stmt.executeQuery("SELECT * FROM socio WHERE nombre = '" + key + "' ;");
-        else if (campo.equals("DNI")) rs = stmt.executeQuery("SELECT * FROM socio WHERE dni = '" + key + "';");
+        if (campo.equals("Todos")) rs = stmt.executeQuery("SELECT * FROM socio WHERE fecha_baja IS NULL ;");
+        else if (campo.equals("Nombre")) rs = stmt.executeQuery("SELECT * FROM socio WHERE nombre = '" + key + "' AND fecha_baja IS NULL ;");
+        else if (campo.equals("DNI")) rs = stmt.executeQuery("SELECT * FROM socio WHERE dni = '" + key + "' AND fecha_baja IS NULL ;");
         else if (campo.equals("Fecha de Nacimiento"))
             rs = stmt.executeQuery("SELECT * FROM socio WHERE fecha_nacimiento = '" + key + "';");
         else return null;
