@@ -63,7 +63,7 @@ public class BajaSocio {
                             case 1:
                                 return s.getDni();
                             case 2:
-                                return s.getFechaNa();
+                                return Util.calendarToString(s.getFechaNa());
                         }
                         throw new RuntimeException("Impossible");
                     }
@@ -72,7 +72,24 @@ public class BajaSocio {
             }
         });
 
+        eliminarButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    db.DeleteSocio(socios[table.getSelectedRow()]);
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
+
+        cancelarButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                CardLayout cl = (CardLayout) Main.j.getLayout();
+                cl.show(Main.j,"Inicio");
+            }
+        });
     }
+
 
     public JPanel getBajaSocioPanel() {
         return BajaSocioPanel;
