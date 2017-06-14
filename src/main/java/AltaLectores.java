@@ -39,8 +39,10 @@ public class AltaLectores {
                 Socio s = new Socio(0,nombre.getText(),dni.getText(),c);
                 try {
                     db.insertSocio(s);
+                    JOptionPane.showMessageDialog(Main.frame,"Guardado Correctamente","Guardar",JOptionPane.INFORMATION_MESSAGE);
                 } catch (Exception e1) {
                     e1.printStackTrace();
+                    JOptionPane.showMessageDialog(Main.frame,"Error","Error",JOptionPane.WARNING_MESSAGE);
                 }
             }
         });

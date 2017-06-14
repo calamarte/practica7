@@ -124,7 +124,9 @@ public class HacerPrestamo {
 
                 try {
                     db.insertPrestamo(p);
+                    JOptionPane.showMessageDialog(Main.frame,"Guardado correctamente","Guardado",JOptionPane.INFORMATION_MESSAGE);
                 } catch (Exception e1) {
+                    JOptionPane.showMessageDialog(Main.frame,"Error","Error",JOptionPane.WARNING_MESSAGE);
                     e1.printStackTrace();
                 }
             }
@@ -136,6 +138,10 @@ public class HacerPrestamo {
                 cl.show(Main.j,"Inicio");
             }
         });
+    }
+
+    public void createTable(){
+
     }
 
 

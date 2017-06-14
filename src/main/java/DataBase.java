@@ -20,7 +20,6 @@ public class DataBase {
     public DataBase(String server, String database, String username, String password) throws Exception {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            System.out.println(server);
             conn = DriverManager.getConnection("jdbc:mysql://"+server+"/"+database, username, password);
         } catch (SQLException ex) {
             System.out.println("SQLException: " + ex.getMessage());
@@ -62,10 +61,16 @@ public class DataBase {
         stmt.close();
     }
 
-    public void InsertSancion(String descripcion, String fecha, String tipo, String prestamo) throws Exception {
+    public void insertSancion(Object sancion) throws Exception {
+        Sancion s = (Sancion) sancion;
         Statement stmt;
         stmt = conn.createStatement();
-        stmt.execute("insert into sancion values (default, '" + descripcion + "', '" + fecha + "', '" + tipo + "', '" + prestamo + "');");
+        stmt.execute("insert into sancion (id,descripcion,fecha,tipo,id_prestamo," +
+                "id_libro_prestamo,n_socio_socio_prestamo,usuario_bibliotecario_prestamo)" +
+                " values (default, '" + s.getDescripcion() + "', now()," +
+                " '" + s.getTipo() + "', '" + s.getPrestamo().getIdPrestamo() + "','" +
+                ""+s.getPrestamo().getLibro().getId()+"','"+s.getPrestamo().getSocio().getId()+"'," +
+                "'"+s.getPrestamo().getBibliotecario().getUsuario()+"');");
         stmt.close();
     }
 
@@ -217,8 +222,10 @@ public class DataBase {
     public Prestamo[] getPrestamos() throws SQLException, ParseException {
         List<Prestamo> prestamoList = new ArrayList<Prestamo>();
         Statement stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT * FROM socio INNER JOIN prestamo ON socio.n_socio = prestamo.n_socio_socio INNER JOIN bibliotecario ON prestamo.usuario_bibliotecario = bibliotecario.usuario\n" +
-                "INNER JOIN libro ON prestamo.id_libro = libro.id;");
+        ResultSet rs = stmt.executeQuery("SELECT * FROM socio INNER JOIN prestamo ON " +
+                "socio.n_socio = prestamo.n_socio_socio INNER JOIN bibliotecario ON" +
+                " prestamo.usuario_bibliotecario = bibliotecario.usuario" +
+                " INNER JOIN libro ON prestamo.id_libro = libro.id;");
 
         while (rs.next()){
             Calendar cSocio = Util.getCalendarDate(rs.getString("socio.fecha_nacimiento"));
@@ -234,7 +241,7 @@ public class DataBase {
             Libro l = new Libro(rs.getInt("libro.id"),rs.getString("libro.isbn"),
                     rs.getString("libro.titulo"),rs.getString("libro.portada"),
                     rs.getString("libro.editorial"),rs.getInt("libro.n_paginas"),
-                    rs.getString("libro.tematica"));
+                    rs.getString("libro.tipo_tematica"));
 
             Calendar cPrestamoInicial = Util.getCalendarDate(rs.getString("prestamo.fecha_inicial"));
             Calendar cPrestamoFinal = Util.getCalendarDate(rs.getString("prestamo.fecha_final"));
@@ -244,6 +251,43 @@ public class DataBase {
 
         Prestamo[] resultado = new Prestamo[prestamoList.size()];
         prestamoList.toArray(resultado);
+        return resultado;
+    }
+
+    public Sancion[] getSanciones(String nombre) throws SQLException, ParseException {
+        List<Sancion> sancionList = new ArrayList<Sancion>();
+        Statement smt = conn.createStatement();
+        ResultSet rs = smt.executeQuery("SELECT * FROM socio INNER JOIN prestamo ON socio.n_socio = prestamo.n_socio_socio INNER JOIN bibliotecario ON prestamo.usuario_bibliotecario = bibliotecario.usuario\n" +
+                "INNER JOIN libro ON prestamo.id_libro = libro.id INNER JOIN sancion ON prestamo.id = sancion.id_prestamo WHERE socio.nombre = '"+nombre+"';");
+
+        while (rs.next()){
+            Calendar cSocio = Util.getCalendarDate(rs.getString("socio.fecha_nacimiento"));
+            Socio s = new Socio(rs.getInt("socio.n_socio"),rs.getString("socio.nombre"),
+                    rs.getString("socio.dni"),cSocio);
+
+            Calendar cBibliotecario = Util.getCalendarDate(rs.getString("fecha_nacimiento"));
+            Bibliotecario b = new Bibliotecario(rs.getString("bibliotecario.usuario"),
+                    rs.getString("bibliotecario.nombre"),
+                    rs.getString("dni"),rs.getString("password"),
+                    cBibliotecario);
+
+            Libro l = new Libro(rs.getInt("libro.id"),rs.getString("libro.isbn"),
+                    rs.getString("libro.titulo"),rs.getString("libro.portada"),
+                    rs.getString("libro.editorial"),rs.getInt("libro.n_paginas"),
+                    rs.getString("libro.tipo_tematica"));
+
+            Calendar cPrestamoInicial = Util.getCalendarDate(rs.getString("prestamo.fecha_inicial"));
+            Calendar cPrestamoFinal = Util.getCalendarDate(rs.getString("prestamo.fecha_final"));
+            Prestamo p = new Prestamo(rs.getInt("prestamo.id"),cPrestamoInicial,cPrestamoFinal,l,s,b,
+                    rs.getInt("n_copia"));
+
+            Calendar cSancion = Util.getCalendarDate(rs.getString("sancion.fecha"));
+            sancionList.add(new Sancion(rs.getInt("sancion.id"),rs.getString("sancion.descripcion"),
+                    cSancion,rs.getString("sancion.tipo"),p));
+        }
+
+        Sancion[] resultado = new Sancion[sancionList.size()];
+        sancionList.toArray(resultado);
         return resultado;
     }
 }

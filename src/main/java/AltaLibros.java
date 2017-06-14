@@ -84,7 +84,10 @@ public class AltaLibros {
                     Libro l = new Libro(0,isbn.getText(),titulo.getText(),portada.getText(),editorial.getText(),Integer.parseInt(paginas.getText()),(String) temas.getSelectedItem());
                     try {
                         db.insertLibro(l,autores[row]);
+                        JOptionPane.showMessageDialog(Main.frame,"Guardado correctamente","Guardado",JOptionPane.INFORMATION_MESSAGE);
                     } catch (Exception e1) {
+                        JOptionPane.showMessageDialog(Main.frame,"Error","Error",JOptionPane.WARNING_MESSAGE);
+
                         e1.printStackTrace();
                     }
                 }

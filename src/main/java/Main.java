@@ -26,6 +26,7 @@ public class Main {
         BajaSocio bsoc = new BajaSocio();
         BajaSancion bsan = new BajaSancion();
         HacerPrestamo hp = new HacerPrestamo();
+        ConsultarSanciones cs = new ConsultarSanciones();
         ImageIcon img = new ImageIcon("C:\\Users\\calamarte\\Desktop\\Java\\practica7\\img\\estanteria.jpg");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setIconImage(img.getImage());
@@ -42,6 +43,7 @@ public class Main {
         j.add(ale.getAltaLectoresPanel(),"AltaLectores");
         j.add(bsoc.getBajaSocioPanel(), "BajaSocio");
         j.add(hp.getHacerPrestamoPanel(),"HacerPrestamo");
+        j.add(cs.getConsultarSancionPanel(),"ConsultarSanciones");
 
         frame.setContentPane(j);
     }
@@ -116,6 +118,12 @@ public class Main {
             public void actionPerformed(ActionEvent e) {
                 CardLayout cl = (CardLayout) Main.j.getLayout();
                 cl.show(Main.j,"AltaSancion");
+            }
+        });
+        consultarSancion.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                CardLayout cl = (CardLayout) Main.j.getLayout();
+                cl.show(Main.j,"ConsultarSanciones");
             }
         });
         bajaSancion.addActionListener(new ActionListener() {

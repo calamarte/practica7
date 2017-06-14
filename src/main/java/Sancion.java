@@ -1,22 +1,40 @@
+import java.util.Calendar;
+
 /**
  * Created by Dgarcia on 07/06/2017.
  */
 public class Sancion {
-    int id;
-    String descripcion;
-    String fecha;
-    String tipo;
-    int idlibro;
-    int idsocio;
-    int idbibliotecario;
+   private int id;
+   private String descripcion;
+   private Calendar fecha;
+   private String tipo;
+   private Prestamo prestamo;
 
-    public Sancion(int id,String descripcion,String fecha,String tipo, int idlibro, int idsocio, int idbibliotecario){
+    public Sancion(int id,String descripcion,Calendar fecha,String tipo, Prestamo prestamo){
         this.id = id;
         this.fecha = fecha;
-        this.descripcion = descripcion;
         this.tipo = tipo;
-        this.idlibro = idlibro;
-        this.idsocio = idsocio;
-        this.idbibliotecario = idbibliotecario;
+        this.descripcion = descripcion;
+        this.prestamo = prestamo;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public Calendar getFecha() {
+        return fecha;
+    }
+
+    public Prestamo getPrestamo() {
+        return prestamo;
     }
 }
