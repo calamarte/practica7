@@ -12,9 +12,9 @@ public class AltaSancion {
     private JButton cancelarButton;
     private JTextField tipo;
     private JTextField fecha;
-    private JTextArea descripcion;
+    private JTextPane descripcion;
     private JComboBox prestamo;
-    private DataBase db = new DataBase("localhost","root","");
+    private DataBase db = Getxml.cogexml();
 
     public AltaSancion() throws Exception {
         cancelarButton.addActionListener(new ActionListener() {

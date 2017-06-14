@@ -24,7 +24,7 @@ public class Getxml {
 
             doc.getDocumentElement().normalize();
 
-            NodeList nList = doc.getElementsByTagName("staff");
+            NodeList nList = doc.getElementsByTagName("properties");
 
             for (int temp = 0; temp < nList.getLength(); temp++) {
 
@@ -37,7 +37,7 @@ public class Getxml {
                     usuario = eElement.getElementsByTagName("username").item(0).getTextContent();
                     passwd = eElement.getElementsByTagName("password").item(0).getTextContent();
                     servidor = eElement.getElementsByTagName("server").item(0).getTextContent();
-                    database = eElement.getElementsByTagName("nickname").item(0).getTextContent();
+                    database = eElement.getElementsByTagName("database").item(0).getTextContent();
                 }
             }
             db = new DataBase(servidor, database, usuario, passwd);

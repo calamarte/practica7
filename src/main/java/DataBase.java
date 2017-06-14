@@ -20,6 +20,7 @@ public class DataBase {
     public DataBase(String server, String database, String username, String password) throws Exception {
         try {
             Class.forName("com.mysql.jdbc.Driver");
+            System.out.println(server);
             conn = DriverManager.getConnection("jdbc:mysql://"+server+"/"+database, username, password);
         } catch (SQLException ex) {
             System.out.println("SQLException: " + ex.getMessage());

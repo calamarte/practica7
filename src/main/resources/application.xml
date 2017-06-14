@@ -1,14 +1,6 @@
 <properties>
-    <username>
-        root
-    </username>
-    <password>
-
-    </password>
-    <database>
-        practica
-    </database>
-    <server>
-        localhost
-    </server>
+    <username>root</username>
+    <password></password>
+    <database>practica</database>
+    <server>localhost</server>
 </properties>

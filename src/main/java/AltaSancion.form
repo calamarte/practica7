@@ -134,7 +134,7 @@
             <properties/>
             <border type="none"/>
             <children>
-              <component id="5d4dd" class="javax.swing.JTextPane" binding="textPane1" default-binding="true">
+              <component id="5d4dd" class="javax.swing.JTextPane" binding="descripcion">
                 <constraints/>
                 <properties/>
               </component>
