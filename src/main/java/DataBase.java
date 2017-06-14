@@ -14,15 +14,13 @@ import java.util.*;
  * Created by Dgarcia on 23/05/2017.
  */
 public class DataBase {
-    String servidor;
-    String usuario;
-    String passwd;
+
     Connection conn;
 
-    public DataBase(String server, String username, String password) throws Exception {
+    public DataBase(String server, String database, String username, String password) throws Exception {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/practica", username, password);
+            conn = DriverManager.getConnection("jdbc:mysql://"+server+"/"+database, username, password);
         } catch (SQLException ex) {
             System.out.println("SQLException: " + ex.getMessage());
             System.out.println("SQLState: " + ex.getSQLState());

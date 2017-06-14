@@ -22,7 +22,6 @@ public class Main {
         AltaAutores aau = new AltaAutores();
         AltaLectores ale = new AltaLectores();
         AltaSancion asa = new AltaSancion();
-        AltaPrestamo apre = new AltaPrestamo();
         BajaLibro bali = new BajaLibro();
         BajaSocio bsoc = new BajaSocio();
         BajaSancion bsan = new BajaSancion();
@@ -42,7 +41,6 @@ public class Main {
         j.add(aau.getAltaAutoresPanel(),"AltaAutores");
         j.add(ale.getAltaLectoresPanel(),"AltaLectores");
         j.add(bsoc.getBajaSocioPanel(), "BajaSocio");
-        j.add(apre.getAltaPrestamoPanel(),"AltaPrestamo");
         j.add(hp.getHacerPrestamoPanel(),"HacerPrestamo");
 
         frame.setContentPane(j);

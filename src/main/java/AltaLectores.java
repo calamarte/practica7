@@ -18,7 +18,7 @@ public class AltaLectores {
     private JComboBox mes;
     private JComboBox year;
     private JTextField fecha;
-    private DataBase db = new DataBase("localhost","root","");
+    private DataBase db = Getxml.cogexml();
 
     public AltaLectores() throws Exception {
         int y = Calendar.getInstance().get(Calendar.YEAR);

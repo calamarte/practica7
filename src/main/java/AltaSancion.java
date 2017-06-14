@@ -14,11 +14,9 @@ public class AltaSancion {
     private JTextField fecha;
     private JTextArea descripcion;
     private JComboBox prestamo;
-    private JTextPane textPane1;
     private DataBase db = new DataBase("localhost","root","");
 
     public AltaSancion() throws Exception {
-
         cancelarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 CardLayout cl = (CardLayout) Main.j.getLayout();
@@ -28,6 +26,7 @@ public class AltaSancion {
         guardarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
+                    //coger texto del prestamo
                     db.InsertSancion(descripcion.getText(), fecha.getText(), tipo.getText(), prestamo.getToolTipText());
                 } catch (Exception e1) {
                     e1.printStackTrace();
@@ -36,8 +35,6 @@ public class AltaSancion {
             }
         });
     }
-
-
     public JPanel getAltaSancionPanel() {
         return AltaSancionPanel;
     }

@@ -15,7 +15,7 @@ public class Login {
     private JLabel Contraseña;
     private JPasswordField passwd;
     private JPanel loginPanel;
-    private DataBase d = new DataBase("localhost","root","");
+    private DataBase d = Getxml.cogexml();
 
     public Login() throws Exception {
         loginButton.addActionListener(new ActionListener() {
