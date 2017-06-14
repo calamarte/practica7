@@ -75,7 +75,7 @@ public class BajaSocio {
         eliminarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    db.DeleteSocio(socios[table.getSelectedRow()]);
+                    db.deleteSocio(socios[table.getSelectedRow()]);
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }

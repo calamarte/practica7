@@ -7,10 +7,7 @@ import java.sql.ResultSet;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 
 /**
@@ -108,7 +105,7 @@ public class DataBase {
         stmt.close();
     }
 
-    public void DeleteSocio(Object socio) throws Exception {
+    public void deleteSocio(Object socio) throws Exception {
         Socio s = (Socio) socio;
         Statement stmt;
         stmt = conn.createStatement();
@@ -215,6 +212,39 @@ public class DataBase {
         stmt.close();
         Libro[] resultado = new Libro[libroList.size()];
         libroList.toArray(resultado);
+        return resultado;
+    }
+
+    public Prestamo[] getPrestamos() throws SQLException, ParseException {
+        List<Prestamo> prestamoList = new ArrayList<Prestamo>();
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT * FROM socio INNER JOIN prestamo ON socio.n_socio = prestamo.n_socio_socio INNER JOIN bibliotecario ON prestamo.usuario_bibliotecario = bibliotecario.usuario\n" +
+                "INNER JOIN libro ON prestamo.id_libro = libro.id;");
+
+        while (rs.next()){
+            Calendar cSocio = Util.getCalendarDate(rs.getString("socio.fecha_nacimiento"));
+            Socio s = new Socio(rs.getInt("socio.n_socio"),rs.getString("socio.nombre"),
+                    rs.getString("socio.dni"),cSocio);
+
+            Calendar cBibliotecario = Util.getCalendarDate(rs.getString("fecha_nacimiento"));
+            Bibliotecario b = new Bibliotecario(rs.getString("bibliotecario.usuario"),
+                    rs.getString("bibliotecario.nombre"),
+                    rs.getString("dni"),rs.getString("password"),
+                    cBibliotecario);
+
+            Libro l = new Libro(rs.getInt("libro.id"),rs.getString("libro.isbn"),
+                    rs.getString("libro.titulo"),rs.getString("libro.portada"),
+                    rs.getString("libro.editorial"),rs.getInt("libro.n_paginas"),
+                    rs.getString("libro.tematica"));
+
+            Calendar cPrestamoInicial = Util.getCalendarDate(rs.getString("prestamo.fecha_inicial"));
+            Calendar cPrestamoFinal = Util.getCalendarDate(rs.getString("prestamo.fecha_final"));
+            prestamoList.add(new Prestamo(rs.getInt("prestamo.id"),cPrestamoInicial,cPrestamoFinal,l,s,b,
+                    rs.getInt("n_copia")));
+        }
+
+        Prestamo[] resultado = new Prestamo[prestamoList.size()];
+        prestamoList.toArray(resultado);
         return resultado;
     }
 }
