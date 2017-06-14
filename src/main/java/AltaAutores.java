@@ -22,7 +22,7 @@ public class AltaAutores {
     private JLabel Nacionalidad_label;
     private JLabel Alias_label;
     private JLabel Fecha_label;
-    private DataBase db = new DataBase("localhost","root","");
+    private DataBase db = Getxml.cogexml();
 
     public AltaAutores() throws Exception {
         cancelarButton.addActionListener(new ActionListener() {

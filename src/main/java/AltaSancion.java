@@ -14,7 +14,7 @@ public class AltaSancion {
     private JTextField fecha;
     private JTextArea descripcion;
     private JComboBox prestamo;
-    private DataBase db = new DataBase("localhost","root","");
+    private DataBase db = Getxml.cogexml();
 
     public AltaSancion() throws Exception {
         cancelarButton.addActionListener(new ActionListener() {

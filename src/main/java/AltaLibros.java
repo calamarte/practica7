@@ -21,7 +21,7 @@ public class AltaLibros {
     private JTextField isbn;
     private JTable table1;
     private JComboBox temas;
-    private DataBase db = new DataBase("localhost","root","");
+    private DataBase db = Getxml.cogexml();
     private Autor[] autores;
 
 

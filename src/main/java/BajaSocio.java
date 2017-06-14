@@ -18,7 +18,7 @@ public class BajaSocio {
     private JButton buscarButton;
     private JPanel BajaSocioPanel;
     private JTable table;
-    private DataBase db = new DataBase("localhost","root","");
+    private DataBase db = Getxml.cogexml();
     Socio socios [];
 
 

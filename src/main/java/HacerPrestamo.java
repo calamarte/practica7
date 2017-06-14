@@ -22,7 +22,7 @@ public class HacerPrestamo {
     private JButton cancelarButton;
     private JPanel HacerPrestamoPanel;
     private JTable tableLibro;
-    private DataBase db = new DataBase("localhost","root","");
+    private DataBase db = Getxml.cogexml();
     private Socio[] socios;
     private Libro[] libros;
 
