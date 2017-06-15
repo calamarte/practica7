@@ -10,7 +10,6 @@ public class Socio {
     private String dni;
     private Calendar fechaNa;
 
-
     public Socio(int id,String nombre,String dni,Calendar fechaNa){
         this.id = id;
         this.nombre = nombre;

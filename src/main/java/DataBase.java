@@ -123,7 +123,6 @@ public class DataBase {
         Statement stmt = conn.createStatement();
         ResultSet rs;
 
-
         if (campo.equals("Todos")) rs = stmt.executeQuery("SELECT * FROM socio WHERE fecha_baja IS NULL ;");
         else if (campo.equals("Nombre")) rs = stmt.executeQuery("SELECT * FROM socio WHERE nombre = '" + key + "' AND fecha_baja IS NULL ;");
         else if (campo.equals("DNI")) rs = stmt.executeQuery("SELECT * FROM socio WHERE dni = '" + key + "' AND fecha_baja IS NULL ;");

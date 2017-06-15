@@ -17,7 +17,6 @@ public class AltaLectores {
     private JComboBox dia;
     private JComboBox mes;
     private JComboBox year;
-    private JTextField fecha;
     private DataBase db = Getxml.cogexml();
 
     public AltaLectores() throws Exception {
