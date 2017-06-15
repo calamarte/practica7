@@ -15,8 +15,10 @@ import java.util.*;
  */
 public class DataBase {
 
+    //define conexion
     Connection conn;
 
+    //objeto database para conectar con el servidor
     public DataBase(String server, String database, String username, String password) throws Exception {
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -28,6 +30,7 @@ public class DataBase {
         }
     }
 
+    //insertar objeto socio en la base de datos
     public void insertSocio(Object socio) throws Exception {
         Socio s = (Socio) socio;
         String fecha = Util.calendarToString(s.getFechaNa());
@@ -37,6 +40,7 @@ public class DataBase {
         stmt.close();
     }
 
+    //insertar objeto autor en la base de datos
     public void insertAutor(Object autor) throws Exception {
         Autor a = (Autor) autor;
         Statement stmt = conn.createStatement();
@@ -45,6 +49,7 @@ public class DataBase {
         stmt.close();
     }
 
+    //insertar objeto libro en la base de datos
     public void insertLibro(Object libro, Object autor) throws Exception {
         Libro l = (Libro) libro;
         Autor a = (Autor) autor;
@@ -58,6 +63,7 @@ public class DataBase {
         stmt.close();
     }
 
+    //insertar objeto sancion en la base de datos
     public void insertSancion(Object sancion) throws Exception {
         Sancion s = (Sancion) sancion;
         Statement stmt;
@@ -71,9 +77,9 @@ public class DataBase {
         stmt.close();
     }
 
+    //insertar objeto prestamo en la base de datos
     public void insertPrestamo(Object prestamo) throws Exception {
         Prestamo p =(Prestamo) prestamo;
-
         Statement stmt;
         stmt = conn.createStatement();
         stmt.execute("insert into prestamo (id,id_libro,n_socio_socio,usuario_bibliotecario,n_copia,fecha_inicial,fecha_final,entregado)" +
@@ -82,7 +88,7 @@ public class DataBase {
         stmt.close();
     }
 
-
+    //actualiza campo fecha baja en socio de la base de datos segun la id del objeto socio
     public void deleteSocio(Object socio) throws Exception {
         Socio s = (Socio) socio;
         Statement stmt;
@@ -91,6 +97,7 @@ public class DataBase {
         stmt.close();
     }
 
+    //consulta si el usuario bibliotecario existe para hacer login
     public boolean login(String bibliotecario, String password) {
         try {
             Statement stmt;
@@ -105,6 +112,7 @@ public class DataBase {
 
     }
 
+    //devuelve objeto bibliotecario
     public Bibliotecario getBibliotecario(String usuario,String passwd) throws SQLException, ParseException {
         Statement stmt;
         stmt = conn.createStatement();
@@ -117,7 +125,7 @@ public class DataBase {
         stmt.close();
         return bi;
     }
-
+    //devuelve array de socios segun campo de busqueda instroducido
     public Socio[] getSocios(String campo, String key) throws SQLException, ParseException {
         List<Socio> socioList = new ArrayList<Socio>();
         Statement stmt = conn.createStatement();
@@ -142,6 +150,7 @@ public class DataBase {
         return resultado;
     }
 
+    //devuelve array de tematicas
     public Tematica[] getTematicas () throws SQLException {
         List<Tematica> tematicaList  = new ArrayList<Tematica>();
         Statement stmt = conn.createStatement();
@@ -157,6 +166,7 @@ public class DataBase {
         return resultado;
     }
 
+    //devuelve array de autores
     public Autor[] getAutores () throws SQLException, ParseException {
         List<Autor> autorList  = new ArrayList<Autor>();
         Statement stmt = conn.createStatement();
@@ -174,6 +184,7 @@ public class DataBase {
         return resultado;
     }
 
+    //devuelve array de libros
     public Libro[] getLibros() throws SQLException {
         List<Libro> libroList = new ArrayList<Libro>();
         Statement stmt = conn.createStatement();
@@ -192,6 +203,7 @@ public class DataBase {
         return resultado;
     }
 
+    //devuelve array de prestamos
     public Prestamo[] getPrestamos() throws SQLException, ParseException {
         List<Prestamo> prestamoList = new ArrayList<Prestamo>();
         Statement stmt = conn.createStatement();
@@ -227,6 +239,7 @@ public class DataBase {
         return resultado;
     }
 
+    //devuelve array de sanciones
     public Sancion[] getSanciones(String nombre) throws SQLException, ParseException {
         List<Sancion> sancionList = new ArrayList<Sancion>();
         Statement smt = conn.createStatement();

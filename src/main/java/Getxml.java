@@ -11,12 +11,14 @@ import org.w3c.dom.Element;
  */
 public class Getxml {
     public static DataBase cogexml() {
+        //inicializacion variables
         String servidor = "";
         String usuario = "";
         String passwd = "";
         String database = "";
         DataBase db = null;
         try {
+            //a partir del fichero xml coge los datos necesarios para conectarse a la base de datos
             File fXmlFile = new File("src/main/resources/application.xml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -34,6 +36,7 @@ public class Getxml {
 
                     Element eElement = (Element) nNode;
 
+                    //las variables cogen el valor segun las etiquetas del xml
                     usuario = eElement.getElementsByTagName("username").item(0).getTextContent();
                     passwd = eElement.getElementsByTagName("password").item(0).getTextContent();
                     servidor = eElement.getElementsByTagName("server").item(0).getTextContent();
@@ -45,6 +48,7 @@ public class Getxml {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        //devuelve objeto base de datos con los datos de conexion
         return db;
     }
 }
