@@ -3,6 +3,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.sql.SQLException;
+import java.text.ParseException;
 
 /**
  * Created by calamarte on 23/05/2017.
@@ -12,19 +14,28 @@ public class Main {
     static JPanel j = new JPanel();
     static JMenuBar jmb = new JMenuBar();
     static Bibliotecario bi;
+    static Login l;
+    static Inicio i;
+    static AltaLibros ali;
+    static AltaAutores aau;
+    static AltaLectores ale;
+    static AltaSancion asa;
+    static BajaSocio bsoc;
+    static HacerPrestamo hp;
+    static ConsultarSanciones cs;
 
     public static void main(String[] args)throws Exception {
+        l = new Login();
+        i = new Inicio();
+        ali = new AltaLibros();
+        aau = new AltaAutores();
+        ale = new AltaLectores();
+        asa = new AltaSancion();
+        bsoc = new BajaSocio();
+        hp = new HacerPrestamo();
+        cs = new ConsultarSanciones();
         setMenu();
         jmb.setVisible(false);
-        Login l = new Login();
-        Inicio i = new Inicio();
-        AltaLibros ali = new AltaLibros();
-        AltaAutores aau = new AltaAutores();
-        AltaLectores ale = new AltaLectores();
-        AltaSancion asa = new AltaSancion();
-        BajaSocio bsoc = new BajaSocio();
-        HacerPrestamo hp = new HacerPrestamo();
-        ConsultarSanciones cs = new ConsultarSanciones();
         ImageIcon img = new ImageIcon("C:\\Users\\calamarte\\Desktop\\Java\\practica7\\img\\estanteria.jpg");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setIconImage(img.getImage());
@@ -51,6 +62,13 @@ public class Main {
         libros.add(altaLibro);
         altaLibro.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                try {
+                    updateTables();
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                } catch (ParseException e1) {
+                    e1.printStackTrace();
+                }
                 CardLayout cl = (CardLayout) Main.j.getLayout();
                 cl.show(Main.j,"AltaLibros");
             }
@@ -64,12 +82,26 @@ public class Main {
         lectores.add(bajaLector);
         altaLector.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                try {
+                    updateTables();
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                } catch (ParseException e1) {
+                    e1.printStackTrace();
+                }
                 CardLayout cl = (CardLayout) Main.j.getLayout();
                 cl.show(Main.j,"AltaLectores");
             }
         });
         bajaLector.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                try {
+                    updateTables();
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                } catch (ParseException e1) {
+                    e1.printStackTrace();
+                }
                 CardLayout cl = (CardLayout) Main.j.getLayout();
                 cl.show(Main.j,"BajaSocio");
             }
@@ -81,6 +113,13 @@ public class Main {
         autores.add(altaAutor);
         altaAutor.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                try {
+                    updateTables();
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                } catch (ParseException e1) {
+                    e1.printStackTrace();
+                }
                 CardLayout cl = (CardLayout) Main.j.getLayout();
                 cl.show(Main.j,"AltaAutores");
             }
@@ -94,12 +133,26 @@ public class Main {
         sanciones.add(consultarSancion);
         altaSancion.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                try {
+                    updateTables();
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                } catch (ParseException e1) {
+                    e1.printStackTrace();
+                }
                 CardLayout cl = (CardLayout) Main.j.getLayout();
                 cl.show(Main.j,"AltaSancion");
             }
         });
         consultarSancion.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                try {
+                    updateTables();
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                } catch (ParseException e1) {
+                    e1.printStackTrace();
+                }
                 CardLayout cl = (CardLayout) Main.j.getLayout();
                 cl.show(Main.j,"ConsultarSanciones");
             }
@@ -111,9 +164,22 @@ public class Main {
         prestamos.add(altaPrestamo);
         altaPrestamo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                try {
+                    updateTables();
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                } catch (ParseException e1) {
+                    e1.printStackTrace();
+                }
                 CardLayout cl = (CardLayout) Main.j.getLayout();
                 cl.show(Main.j,"HacerPrestamo");
             }
         });
+    }
+
+    public static void updateTables() throws SQLException, ParseException {
+        ali.createTable();
+        asa.createTable();
+        hp.createTable();
     }
 }
