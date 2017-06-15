@@ -82,29 +82,6 @@ public class DataBase {
         stmt.close();
     }
 
-    public void DeleteAutor(int id) throws Exception {
-        Statement stmt;
-        stmt = conn.createStatement();
-        stmt.close();
-    }
-
-    public void DeleteLibro(int id) throws Exception {
-        Statement stmt;
-        stmt = conn.createStatement();
-        stmt.close();
-    }
-
-    public void DeletePrestamo(int id) throws Exception {
-        Statement stmt;
-        stmt = conn.createStatement();
-        stmt.close();
-    }
-
-    public void DeleteSancion(int id) throws Exception {
-        Statement stmt;
-        stmt = conn.createStatement();
-        stmt.close();
-    }
 
     public void deleteSocio(Object socio) throws Exception {
         Socio s = (Socio) socio;
