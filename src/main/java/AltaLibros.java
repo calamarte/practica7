@@ -12,6 +12,7 @@ import java.text.ParseException;
  * Created by calamarte on 24/05/2017.
  */
 public class AltaLibros {
+    //elementos del panel
     private JPanel AltaLibrosPanel;
     private JButton cancel;
     private JButton ok;
@@ -23,11 +24,13 @@ public class AltaLibros {
     private JTextField isbn;
     private JTable table1;
     private JComboBox temas;
+    //conexion a db
     private DataBase db = Getxml.cogexml();
     private Autor[] autores;
 
 
     public AltaLibros() throws SQLException, ParseException {
+        //muestra todas las tematicas de la bd
         Tematica[] t = db.getTematicas();
         for (int i = 0; i < t.length; i++) {
             temas.addItem(t[i].getTipo());
@@ -35,12 +38,14 @@ public class AltaLibros {
 
             createTable();
 
+        //al cancelar vuelve atras
             cancel.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     CardLayout cl = (CardLayout) Main.j.getLayout();
                     cl.show(Main.j,"Inicio");
                 }
             });
+        //se inserta el libro en la db y muestra mensaje de confirmacion
             ok.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     int row = table1.getSelectedRow();
@@ -59,17 +64,20 @@ public class AltaLibros {
 
     }
 
-
+    //devuelve panel
     public JPanel getAltaLibrosPanel() {
         return AltaLibrosPanel;
     }
 
+    //crea la tabla
     public void createTable() throws SQLException, ParseException {
         autores = db.getAutores();
         TableModel tm = new AbstractTableModel() {
+            //numero de filas
             public int getRowCount() {
                 return autores.length ;
             }
+            //numero de columnas y cabecera con nombre
             public String getColumnName(int col){
                 switch (col){
                     case 0:
@@ -84,10 +92,12 @@ public class AltaLibros {
                 throw new RuntimeException("imposible man");
             }
 
+            //especifica numero de columnas
             public int getColumnCount() {
                 return 4;
             }
 
+            //mete valores en las columnas adecuadas
             public Object getValueAt(int rowIndex, int columnIndex) {
                 Autor a = autores[rowIndex];
                 switch(columnIndex) {

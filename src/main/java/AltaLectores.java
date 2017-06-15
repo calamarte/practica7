@@ -9,6 +9,7 @@ import java.util.GregorianCalendar;
  * Created by calamarte on 25/05/2017.
  */
 public class AltaLectores {
+    //elementos del panel
     private JButton cancelarButton;
     private JButton guardarButton;
     private JPanel AltaLectoresPanel;
@@ -17,19 +18,23 @@ public class AltaLectores {
     private JComboBox dia;
     private JComboBox mes;
     private JComboBox year;
+    //conexion a db
     private DataBase db = Getxml.cogexml();
 
     public AltaLectores() throws Exception {
+        //desplegable de años
         int y = Calendar.getInstance().get(Calendar.YEAR);
         for (int i = y-120; i < y ; i++) {
             year.addItem(i+"");
         }
+        //al cancelar vuelve atras
         cancelarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 CardLayout cl = (CardLayout) Main.j.getLayout();
                 cl.show(Main.j,"Inicio");
             }
         });
+        //se inserta en la db y muestra mensaje de confirmacion
         guardarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 Calendar c = new GregorianCalendar(Integer.parseInt((String) year.getSelectedItem()),
@@ -47,6 +52,7 @@ public class AltaLectores {
         });
     }
 
+    //devuelve panel
     public JPanel getAltaLectoresPanel() {
         return AltaLectoresPanel;
     }
