@@ -2,9 +2,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Calendar;
 import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.GregorianCalendar;
 
 /**
  * Created by Dgarcia on 01/06/2017.
@@ -22,9 +24,17 @@ public class AltaAutores {
     private JLabel Nacionalidad_label;
     private JLabel Alias_label;
     private JLabel Fecha_label;
+    private JComboBox dia;
+    private JComboBox mes;
+    private JComboBox year;
     private DataBase db = Getxml.cogexml();
 
     public AltaAutores() throws Exception {
+        int y = Calendar.getInstance().get(Calendar.YEAR);
+        for (int i = y-1000; i < y ; i++) {
+            year.addItem(i+"");
+        }
+
         cancelarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 CardLayout cl = (CardLayout) Main.j.getLayout();
@@ -33,16 +43,14 @@ public class AltaAutores {
         });
         guardarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                Date date = null;
+                Calendar c = new GregorianCalendar(Integer.parseInt((String) year.getSelectedItem()),
+                        Integer.parseInt((String) mes.getSelectedItem())-1,Integer.parseInt((String) dia.getSelectedItem()));
+
                 try {
-                    date = sdf.parse(fecha.getText());
-                } catch (ParseException e1) {
-                    e1.printStackTrace();
-                }
-                try {
-                    db.InsertAutor(date, nacionalidad.getText(), alias.getText(), nombre.getText());
+                    db.insertAutor(new Autor(0,nombre.getText(),nacionalidad.getText(),alias.getText(),c));
+                    JOptionPane.showMessageDialog(Main.frame,"Guardado Correctamente","Guardar",JOptionPane.INFORMATION_MESSAGE);
                 } catch (Exception e1) {
+                    JOptionPane.showMessageDialog(Main.frame,"Error","Error",JOptionPane.WARNING_MESSAGE);
                     e1.printStackTrace();
                 }
 

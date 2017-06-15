@@ -5,7 +5,8 @@ import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -26,12 +27,40 @@ public class HacerPrestamo {
     private Socio[] socios;
     private Libro[] libros;
 
-    HacerPrestamo() throws Exception {
+    HacerPrestamo() throws SQLException, ParseException {
         int y = Calendar.getInstance().get(Calendar.YEAR);
         for (int i = y; i < y+120 ; i++) {
             fFAno.addItem(i+"");
         }
 
+        createTable();
+
+        aceptarButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Calendar c = new GregorianCalendar(Integer.parseInt((String) fFAno.getSelectedItem()),
+                        Integer.parseInt((String) fFMes.getSelectedItem()),Integer.parseInt((String) fFDia.getSelectedItem()));
+
+                Prestamo p = new Prestamo(0,null,c,libros[tableLibro.getSelectedRow()],socios[tableSocio.getSelectedRow()],Main.bi,Integer.parseInt(nCopia.getText()));
+
+                try {
+                    db.insertPrestamo(p);
+                    JOptionPane.showMessageDialog(Main.frame,"Guardado correctamente","Guardado",JOptionPane.INFORMATION_MESSAGE);
+                } catch (Exception e1) {
+                    JOptionPane.showMessageDialog(Main.frame,"Error","Error",JOptionPane.WARNING_MESSAGE);
+                    e1.printStackTrace();
+                }
+            }
+        });
+
+        cancelarButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                CardLayout cl = (CardLayout) Main.j.getLayout();
+                cl.show(Main.j,"Inicio");
+            }
+        });
+    }
+
+    public void createTable() throws SQLException, ParseException {
         libros = db.getLibros();
         socios = db.getSocios("Todos",null);
         TableModel tmSocio = new AbstractTableModel() {
@@ -114,34 +143,6 @@ public class HacerPrestamo {
             }
         };
         tableLibro.setModel(tmLibro);
-
-        aceptarButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                Calendar c = new GregorianCalendar(Integer.parseInt((String) fFAno.getSelectedItem()),
-                        Integer.parseInt((String) fFMes.getSelectedItem()),Integer.parseInt((String) fFDia.getSelectedItem()));
-
-                Prestamo p = new Prestamo(0,null,c,libros[tableLibro.getSelectedRow()],socios[tableSocio.getSelectedRow()],Main.bi,Integer.parseInt(nCopia.getText()));
-
-                try {
-                    db.insertPrestamo(p);
-                    JOptionPane.showMessageDialog(Main.frame,"Guardado correctamente","Guardado",JOptionPane.INFORMATION_MESSAGE);
-                } catch (Exception e1) {
-                    JOptionPane.showMessageDialog(Main.frame,"Error","Error",JOptionPane.WARNING_MESSAGE);
-                    e1.printStackTrace();
-                }
-            }
-        });
-
-        cancelarButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                CardLayout cl = (CardLayout) Main.j.getLayout();
-                cl.show(Main.j,"Inicio");
-            }
-        });
-    }
-
-    public void createTable(){
-
     }
 
 

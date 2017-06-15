@@ -37,14 +37,11 @@ public class DataBase {
         stmt.close();
     }
 
-    public void InsertAutor(Date fecha, String nacionalidad, String alias, String nombre) throws Exception {
-        Statement stmt;
-
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        String fechaStr = formatter.format(fecha);
-
-        stmt = conn.createStatement();
-        stmt.execute("insert into autor values (default, '" + fechaStr + "', '" + nacionalidad + "', '" + alias + "', '" + nombre + "');");
+    public void insertAutor(Object autor) throws Exception {
+        Autor a = (Autor) autor;
+        Statement stmt = conn.createStatement();
+        stmt.execute("insert into autor values (default, '" + Util.calendarToString(a.getFecha()) + "'," +
+                " '" + a.getNacionalidad() + "', '" + a.getAlias() + "', '" + a.getNombre() + "');");
         stmt.close();
     }
 
@@ -184,7 +181,7 @@ public class DataBase {
         return resultado;
     }
 
-    public Autor[] getAutores () throws SQLException {
+    public Autor[] getAutores () throws SQLException, ParseException {
         List<Autor> autorList  = new ArrayList<Autor>();
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery("SELECT * FROM autor;");
@@ -192,7 +189,7 @@ public class DataBase {
         while (rs.next()){
             autorList.add(new Autor(rs.getInt("id"),rs.getString("nombre"),
                     rs.getString("nacionalidad"),rs.getString("alias"),
-                    rs.getString("fecha_nacimiento")));
+                   Util.getCalendarDate(rs.getString("fecha_nacimiento"))));
         }
         rs.close();
         stmt.close();

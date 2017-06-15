@@ -21,7 +21,32 @@ public class AltaSancion {
     private Prestamo[] prestamos;
     private DataBase db = Getxml.cogexml();
 
-    public AltaSancion() throws Exception {
+    public AltaSancion() throws SQLException, ParseException {
+
+        createTable();
+        cancelarButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                CardLayout cl = (CardLayout) Main.j.getLayout();
+                cl.show(Main.j,"Inicio");
+            }
+        });
+        guardarButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    db.insertSancion(new Sancion(0,descripcion.getText(),null,(String) tipo.getSelectedItem(),prestamos[table.getSelectedRow()]));
+                    JOptionPane.showMessageDialog(Main.frame,"Guardada correctamente","Creado",JOptionPane.INFORMATION_MESSAGE);
+                } catch (Exception e1) {
+                    JOptionPane.showMessageDialog(Main.frame,"Error","Error",JOptionPane.WARNING_MESSAGE);
+                    e1.printStackTrace();
+                }
+            }
+        });
+    }
+    public JPanel getAltaSancionPanel() {
+        return AltaSancionPanel;
+    }
+
+    public void createTable() throws SQLException, ParseException {
         prestamos = db.getPrestamos();
         TableModel tm = new AbstractTableModel() {
             public int getRowCount() {
@@ -63,26 +88,5 @@ public class AltaSancion {
         };
 
         table.setModel(tm);
-
-        cancelarButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                CardLayout cl = (CardLayout) Main.j.getLayout();
-                cl.show(Main.j,"Inicio");
-            }
-        });
-        guardarButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    db.insertSancion(new Sancion(0,descripcion.getText(),null,(String) tipo.getSelectedItem(),prestamos[table.getSelectedRow()]));
-                    JOptionPane.showMessageDialog(Main.frame,"Guardada correctamente","Creado",JOptionPane.INFORMATION_MESSAGE);
-                } catch (Exception e1) {
-                    JOptionPane.showMessageDialog(Main.frame,"Error","Error",JOptionPane.WARNING_MESSAGE);
-                    e1.printStackTrace();
-                }
-            }
-        });
-    }
-    public JPanel getAltaSancionPanel() {
-        return AltaSancionPanel;
     }
 }

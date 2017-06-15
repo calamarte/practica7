@@ -4,6 +4,8 @@ import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.text.ParseException;
 
 
 /**
@@ -25,52 +27,13 @@ public class AltaLibros {
     private Autor[] autores;
 
 
-    public AltaLibros() throws Exception {
+    public AltaLibros() throws SQLException, ParseException {
         Tematica[] t = db.getTematicas();
         for (int i = 0; i < t.length; i++) {
             temas.addItem(t[i].getTipo());
         }
 
-        autores = db.getAutores();
-        TableModel tm = new AbstractTableModel() {
-            public int getRowCount() {
-                return autores.length ;
-            }
-            public String getColumnName(int col){
-                switch (col){
-                    case 0:
-                        return "Nombre";
-                    case 1:
-                        return "Alias";
-                    case 2:
-                        return "Fecha de nacimiento";
-                    case 3:
-                        return "Nacionalidad";
-                }
-                throw new RuntimeException("imposible man");
-            }
-
-            public int getColumnCount() {
-                return 4;
-            }
-
-            public Object getValueAt(int rowIndex, int columnIndex) {
-                Autor a = autores[rowIndex];
-                switch(columnIndex) {
-                    case 0:
-                        return a.nombre;
-                    case 1:
-                        return a.alias;
-                    case 2:
-                        return a.fecha;
-                    case 3:
-                        return a.nacionalidad;
-                }
-                throw new RuntimeException("Impossible");
-            }
-
-        };
-        table1.setModel(tm);
+            createTable();
 
             cancel.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -99,5 +62,48 @@ public class AltaLibros {
 
     public JPanel getAltaLibrosPanel() {
         return AltaLibrosPanel;
+    }
+
+    public void createTable() throws SQLException, ParseException {
+        autores = db.getAutores();
+        TableModel tm = new AbstractTableModel() {
+            public int getRowCount() {
+                return autores.length ;
+            }
+            public String getColumnName(int col){
+                switch (col){
+                    case 0:
+                        return "Nombre";
+                    case 1:
+                        return "Alias";
+                    case 2:
+                        return "Fecha de nacimiento";
+                    case 3:
+                        return "Nacionalidad";
+                }
+                throw new RuntimeException("imposible man");
+            }
+
+            public int getColumnCount() {
+                return 4;
+            }
+
+            public Object getValueAt(int rowIndex, int columnIndex) {
+                Autor a = autores[rowIndex];
+                switch(columnIndex) {
+                    case 0:
+                        return a.getNombre();
+                    case 1:
+                        return a.getAlias();
+                    case 2:
+                        return Util.calendarToString(a.getFecha());
+                    case 3:
+                        return a.getNacionalidad();
+                }
+                throw new RuntimeException("Impossible");
+            }
+
+        };
+        table1.setModel(tm);
     }
 }
