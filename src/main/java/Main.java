@@ -193,6 +193,7 @@ public class Main {
         });
     }
 
+    //refrescar las tablas
     public static void updateTables() throws SQLException, ParseException {
         ali.createTable();
         asa.createTable();

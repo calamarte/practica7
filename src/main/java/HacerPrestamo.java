@@ -13,6 +13,7 @@ import java.util.GregorianCalendar;
  * Created by calamarte on 12/06/2017.
  */
 public class HacerPrestamo {
+    //elementos del panel
     private JTable tableSocio;
     private JTextField nCopia;
     private JComboBox fFDia;
@@ -27,15 +28,17 @@ public class HacerPrestamo {
     private Libro[] libros;
 
     HacerPrestamo() throws SQLException, ParseException {
+        //muestra desplegable de años
         int y = Calendar.getInstance().get(Calendar.YEAR);
         for (int i = y; i < y+120 ; i++) {
             fFAno.addItem(i+"");
         }
-
+        //crea tabla
         createTable();
-
+        //se crea el prestamo y muestra mensaje de confirmacion
         aceptarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                //compone la fecha entera
                 Calendar c = new GregorianCalendar(Integer.parseInt((String) fFAno.getSelectedItem()),
                         Integer.parseInt((String) fFMes.getSelectedItem()),Integer.parseInt((String) fFDia.getSelectedItem()));
 
@@ -51,6 +54,7 @@ public class HacerPrestamo {
             }
         });
 
+        //al cancelar vuelve atras
         cancelarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 CardLayout cl = (CardLayout) Main.j.getLayout();
@@ -63,9 +67,11 @@ public class HacerPrestamo {
         libros = db.getLibros();
         socios = db.getSocios("Todos",null);
         TableModel tmSocio = new AbstractTableModel() {
+            //filas segun numero de socios
             public int getRowCount() {
                 return socios.length ;
             }
+            //cabeceras
             public String getColumnName(int col){
                 switch (col){
                     case 0:
@@ -78,10 +84,12 @@ public class HacerPrestamo {
                 throw new RuntimeException("imposible man");
             }
 
+            //numero de columnas
             public int getColumnCount() {
                 return 3;
             }
 
+            //mostrar valores
             public Object getValueAt(int rowIndex, int columnIndex) {
                 Socio s = socios[rowIndex];
                 switch(columnIndex) {
@@ -100,9 +108,11 @@ public class HacerPrestamo {
         tableSocio.setModel(tmSocio);
 
         TableModel tmLibro = new AbstractTableModel() {
+            //filas segun libros
             public int getRowCount() {
                 return libros.length ;
             }
+            //cabeceras
             public String getColumnName(int col){
                 switch (col){
                     case 0:
@@ -120,10 +130,12 @@ public class HacerPrestamo {
                 throw new RuntimeException("imposible man");
             }
 
+            //numero de columnas
             public int getColumnCount() {
                 return 5;
             }
 
+            //mostrar valores
             public Object getValueAt(int rowIndex, int columnIndex) {
                 Libro l = libros[rowIndex];
                 switch(columnIndex) {
@@ -144,8 +156,7 @@ public class HacerPrestamo {
         tableLibro.setModel(tmLibro);
     }
 
-
-
+    //devuelve panel
     public JPanel getHacerPrestamoPanel() {
         return HacerPrestamoPanel;
     }

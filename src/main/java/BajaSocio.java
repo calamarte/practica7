@@ -11,6 +11,7 @@ import java.text.ParseException;
  * Created by Dgarcia on 01/06/2017.
  */
 public class BajaSocio {
+    //elementos del panel
     private JButton cancelarButton;
     private JButton eliminarButton;
     private JComboBox comboBox1;
@@ -18,11 +19,13 @@ public class BajaSocio {
     private JButton buscarButton;
     private JPanel BajaSocioPanel;
     private JTable table;
+    //conexion a db
     private DataBase db = Getxml.cogexml();
     Socio socios [];
 
 
     public BajaSocio() throws Exception {
+        //al buscar coge el valor introducido en el textfield y lo busca en la db
         buscarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String s =  (String) comboBox1.getSelectedItem();
@@ -35,10 +38,12 @@ public class BajaSocio {
                 }
 
                 TableModel tm = new AbstractTableModel() {
+                    //tantas filas como socios
                     public int getRowCount() {
                         return socios.length ;
                     }
 
+                    //cabeceras de la tabla
                     public String getColumnName(int col){
                         switch (col){
                             case 0:
@@ -51,10 +56,12 @@ public class BajaSocio {
                         throw new RuntimeException("imposible man");
                     }
 
+                    //numero de columnas segun campos
                     public int getColumnCount() {
                         return 3;
                     }
 
+                    //mostrar valores
                     public Object getValueAt(int rowIndex, int columnIndex) {
                         Socio s = socios[rowIndex];
                         switch(columnIndex) {
@@ -72,6 +79,7 @@ public class BajaSocio {
             }
         });
 
+        //se da de baja el usuario en la db
         eliminarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -82,6 +90,7 @@ public class BajaSocio {
             }
         });
 
+        //al cancelar vuelve atras
         cancelarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 CardLayout cl = (CardLayout) Main.j.getLayout();
@@ -90,7 +99,7 @@ public class BajaSocio {
         });
     }
 
-
+    //devuelve el panel
     public JPanel getBajaSocioPanel() {
         return BajaSocioPanel;
     }
