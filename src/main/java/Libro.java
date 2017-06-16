@@ -3,13 +3,13 @@
  */
 public class Libro {
     //propiedades de libro
-    int id;
-    String isbn;
-    String titulo;
-    String portada;
-    String editorial;
-    int paginas;
-    String tematica;
+    private int id;
+    private String isbn;
+    private String titulo;
+    private String portada;
+    private String editorial;
+    private int paginas;
+    private String tematica;
 
     //constructor
     public Libro(int id, String isbn, String titulo, String portada, String editorial, int paginas, String tematica){
