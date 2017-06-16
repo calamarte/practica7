@@ -10,6 +10,7 @@ import java.text.ParseException;
  * Created by calamarte on 14/06/2017.
  */
 public class ConsultarSanciones {
+    //elementos del panel
     private JPanel ConsultarSancionPanel;
     private JTable tabla;
     private JTextField nombre;
@@ -19,6 +20,7 @@ public class ConsultarSanciones {
     private Sancion[] sancions;
 
     public ConsultarSanciones() {
+        //muestra sancion segun el nombre buscado
         buscar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -30,10 +32,12 @@ public class ConsultarSanciones {
                 }
 
                 TableModel tm = new AbstractTableModel() {
+                    //tantas filas como sanciones
                     public int getRowCount() {
                         return sancions.length;
                     }
 
+                    //cabeceras
                     public String getColumnName(int col) {
                         switch (col) {
                             case 0:
@@ -48,10 +52,12 @@ public class ConsultarSanciones {
                         throw new RuntimeException("imposible man");
                     }
 
+                    //definir numero de columnas
                     public int getColumnCount() {
                         return 4;
                     }
 
+                    //mostrar valores
                     public Object getValueAt(int rowIndex, int columnIndex) {
                         Sancion s = sancions[rowIndex];
                         switch (columnIndex) {
@@ -72,6 +78,7 @@ public class ConsultarSanciones {
         });
     }
 
+    //devuelve el panel
     public JPanel getConsultarSancionPanel() {
         return ConsultarSancionPanel;
     }

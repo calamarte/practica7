@@ -12,6 +12,7 @@ import java.util.Calendar;
  * Created by Dgarcia on 01/06/2017.
  */
 public class AltaSancion {
+    //elementos del panel
     private JPanel AltaSancionPanel;
     private JButton guardarButton;
     private JButton cancelarButton;
@@ -23,13 +24,16 @@ public class AltaSancion {
 
     public AltaSancion() throws SQLException, ParseException {
 
+        //crea la tabla
         createTable();
+        //al cancelar vuelve atras
         cancelarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 CardLayout cl = (CardLayout) Main.j.getLayout();
                 cl.show(Main.j,"Inicio");
             }
         });
+        //se inserta en la base de datos y muestra mensaje de confirmacion
         guardarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -42,6 +46,7 @@ public class AltaSancion {
             }
         });
     }
+    //devuelve el panel
     public JPanel getAltaSancionPanel() {
         return AltaSancionPanel;
     }
@@ -49,9 +54,11 @@ public class AltaSancion {
     public void createTable() throws SQLException, ParseException {
         prestamos = db.getPrestamos();
         TableModel tm = new AbstractTableModel() {
+            //numero de filas segun propiedades de prestamos
             public int getRowCount() {
                 return prestamos.length ;
             }
+            //muestra cabeceras de la tabla
             public String getColumnName(int col){
                 switch (col){
                     case 0:
@@ -66,10 +73,12 @@ public class AltaSancion {
                 throw new RuntimeException("imposible man");
             }
 
+            //numero de columnas de la tabla
             public int getColumnCount() {
                 return 4;
             }
 
+            //muestra los valores de los prestamos
             public Object getValueAt(int rowIndex, int columnIndex) {
                 Prestamo p = prestamos[rowIndex];
                 switch(columnIndex) {
